@@ -6,11 +6,11 @@ namespace AlgorithmDesign
 {
 	public class QuickSort
 	{
-		public static long CountComparison(List<int> data)
+		public static long CountComparison(List<int> data, int optmethod)
 		{
 			countcomp = 0;
 
-			flagpartition = 0;// 0 for First; 1 for Last; 2 for middle
+			flagpartition = optmethod;// 0 for First; 1 for Last; 2 for middle
 
 			Sort (data, 0, data.Count - 1);
 			return countcomp;
@@ -30,13 +30,15 @@ namespace AlgorithmDesign
 		{
 			countcomp += hi - lo;
 
-			int ind_pivot = 0;
-
-			if (flagpartition == 0) {
-				ind_pivot = lo;
+			if (flagpartition == 1) {
+				int ind_pivot = hi;
+				Exch (data, ind_pivot, lo);
+			} else if (flagpartition == 2) {
+				int ind_pivot = Median (data, lo, hi, (int)(hi + lo) / 2);
+				Exch (data, ind_pivot, lo);
 			}
 
-			int pivot = data [ind_pivot];
+			int pivot = data [lo];
 
 			int i = lo;
 			for ( int j = lo + 1; j <= hi; ++j ) {
@@ -48,7 +50,7 @@ namespace AlgorithmDesign
 			//Console.WriteLine ("The position of the pivot data[{0}] = {1} is {2}", ind_pivot, data[ind_pivot], i);
 
 			if (i != lo) { 
-				Exch (data, ind_pivot, i);
+				Exch (data, lo, i);
 			}
 
 			return i;
@@ -59,6 +61,16 @@ namespace AlgorithmDesign
 			int tmp = data [i];
 			data [i] = data [j];
 			data [j] = tmp;
+		}
+
+		static int Median(List<int> data, int a, int b, int c) {
+
+			if ( (data[a] - data[b]) * (data[c] - data[a]) >= 0 ) // a >= b and a <= c OR a <= b and a >= c
+				return a;
+			else if ( (data[b] - data[a]) * (data[c] - data[b]) >= 0 ) // b >= a and b <= c OR b <= a and b >= c
+				return b;
+			else
+				return c;
 		}
 
 		static int flagpartition;

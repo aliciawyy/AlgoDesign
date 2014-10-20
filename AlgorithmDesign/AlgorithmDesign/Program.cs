@@ -31,10 +31,12 @@ namespace AlgorithmDesign
 			string filename0 = "QuickSort.txt";
 			Console.WriteLine ("Enter the file name :");
 			filename0 = Console.ReadLine();
+			Console.WriteLine ("Enter the pivot :(0 for fist, 1 for last, 2 for 3 ways median)");
+			int optmethod = Convert.ToInt32(Console.ReadLine ());
 			string filename = datapath + filename0;//
 			List<int> data = ReadFile.ReadIntFile (filename);
 
-			long countcomp = QuickSort.CountComparison (data);
+			long countcomp = QuickSort.CountComparison (data, optmethod);
 
 			Console.WriteLine ("File name : {0}", filename);
 			Console.WriteLine ("The Length of the data is {0}", data.Count);
