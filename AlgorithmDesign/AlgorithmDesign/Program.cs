@@ -14,6 +14,7 @@ namespace AlgorithmDesign
 
 		static void MergeSortTest()
 		{
+
 			string filename = datapath + "IntegerArray.txt";
 			List<int> data = ReadFile.ReadIntFile (filename);
 
@@ -27,7 +28,10 @@ namespace AlgorithmDesign
 
 		static void QuickSortTest()
 		{
-			string filename = datapath + "1000.txt";//"QuickSort.txt";
+			string filename0 = "QuickSort.txt";
+			Console.WriteLine ("Enter the file name :");
+			filename0 = Console.ReadLine();
+			string filename = datapath + filename0;//
 			List<int> data = ReadFile.ReadIntFile (filename);
 
 			long countcomp = QuickSort.CountComparison (data);

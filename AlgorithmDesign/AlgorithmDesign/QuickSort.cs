@@ -30,48 +30,22 @@ namespace AlgorithmDesign
 		{
 			countcomp += hi - lo;
 
-			int i = lo, j = lo;
-
-			int ind_pivot, pivot;
+			int ind_pivot = 0;
 
 			if (flagpartition == 0) {
 				ind_pivot = lo;
+			}
 
-				pivot = data [ind_pivot];
-				/*
-				for (int j = lo + 1; j <= hi; ++j) {
-					if ( (data [j] < pivot) && ( i < j ) ) {
-						Exch (data, j, ++i);
-					}
-				}*/
-				i = lo;
-				j = lo;
-				while ( j <= hi - 1 ) {
-					if (j == ind_pivot) { ++j; }
-					if (i == ind_pivot) { ++i; }
+			int pivot = data [ind_pivot];
 
-					if ( j == i && data[++j] < pivot ) { 
-						++i; 
-					} else if ( j >  i && data[++j] < pivot ) {
-						Exch (data, j, ++i);
-					}
+			int i = lo;
+			for ( int j = lo + 1; j <= hi; ++j ) {
+				if (data [j] < pivot) {
+					Exch (data, j, ++i);
 				}
-
-			} else if (flagpartition == 1) {
-				ind_pivot = hi;
-
-				pivot = data [ind_pivot];
-
-				for (j = lo; j <= hi - 1; ++j) {
-					if ( (data [j] < pivot) && ( i < j ) ) {
-						Exch (data, j, i++);
-					}
-				}
-			} else {
-				ind_pivot = (hi - lo) / 2;
 			}
 				
-			Console.WriteLine ("The position of the pivot data[{0}] = {1} is {2}", ind_pivot, data[ind_pivot], i);
+			//Console.WriteLine ("The position of the pivot data[{0}] = {1} is {2}", ind_pivot, data[ind_pivot], i);
 
 			if (i != lo) { 
 				Exch (data, ind_pivot, i);
