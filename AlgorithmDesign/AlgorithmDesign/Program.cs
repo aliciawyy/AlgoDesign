@@ -22,7 +22,7 @@ namespace AlgorithmDesign
 			Console.WriteLine ("2 - QuickSort");
 
 			int optmethod0 = Convert.ToInt32(Console.ReadLine ());
-			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.MergeSortType : TypeOfSortingAlgo.QuickSortType;
+			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.QuickSortType : TypeOfSortingAlgo.MergeSortType;
 
 			string filename0;
 			Console.WriteLine ("Enter the file name (IntegerArray.txt by default):");

@@ -54,6 +54,8 @@ namespace AlgorithmDesign
 			int ind_pivot;
 
 			switch (flagpartition) {
+			case PivotPosition.First:
+				break;
 			case PivotPosition.Final:
 				Exch (data, hi, lo);
 				break;

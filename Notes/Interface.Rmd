@@ -1,0 +1,12 @@
+# Interface
+
+An __interface__ provides a specification rather than an implementation for its members.
+
+* Interface members are all _implicitly abstract_.
+* A class can inherit from only a _single_ class but can implement _multiple_ interfaces.
+
+An interface can contain only methods, properties, events and indexers. (non data fields)
+
+Interface members are always implicitly public and cannot declare an access modifier. Implementing an interface means providing a __public__ implementation for all its members.
+
+An interface object can be cast to any class which implements that interface.
