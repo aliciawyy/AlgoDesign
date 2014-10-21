@@ -6,6 +6,7 @@ namespace AlgorithmDesign
 	class MainClass
 	{
 		static readonly string datapath = "/home/alicia/Codes/CSharp/MyFirstCsharp/data/"; 
+		enum TypeOfSortingAlgo { MergeSortType = 1, QuickSortType = 2 }
 
 		public static void Main (string[] args)
 		{
@@ -18,7 +19,7 @@ namespace AlgorithmDesign
 			Console.WriteLine ("1 - MergeSort (default)");
 			Console.WriteLine ("2 - QuickSort");
 
-			int opt = Convert.ToInt32(Console.ReadLine ());
+			TypeOfSortingAlgo optmethod = (TypeOfSortingAlgo) Convert.ToInt32(Console.ReadLine ());
 
 			string filename0;
 			Console.WriteLine ("Enter the file name (IntegerArray.txt by default):");
@@ -33,18 +34,23 @@ namespace AlgorithmDesign
 
 			SortingAlgo<int> sortingalgo;
 
-			switch (opt) 
+			switch (optmethod) 
 			{
-			case 1:
+			case TypeOfSortingAlgo.MergeSortType:
 				Console.WriteLine ("[Info]Start MergeSort...");
+
 				sortingalgo = new MergeSort<int> ();
 				break;
-			case 2:
+
+			case TypeOfSortingAlgo.QuickSortType:
 				Console.WriteLine ("[Info]Start QuickSort...");
+
 				Console.WriteLine ("Enter the pivot position:(0 for fist, 1 for last, 2 for 3-ways median, 3 for random)");
 				int pivotpos = Convert.ToInt32(Console.ReadLine ());
+
 				sortingalgo = new QuickSort<int> (pivotpos);
 				break;
+
 			default:
 				goto case 1;
 			}
