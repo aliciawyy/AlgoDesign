@@ -5,51 +5,52 @@ namespace AlgorithmDesign
 {
 	class MainClass
 	{
+		static readonly string datapath = "/home/alicia/Codes/CSharp/MyFirstCsharp/data/"; 
+
 		public static void Main (string[] args)
 		{
-			 //MergeSortTest();
-			QuickSortTest ();
-
+			SortingTest ();
 		}
 
-		static void MergeSortTest()
+		static void SortingTest()
 		{
+			Console.WriteLine ("Enter the sorting algorithm you want to test:");
+			Console.WriteLine ("1 - MergeSort (default)");
+			Console.WriteLine ("2 - QuickSort");
 
-			string filename = datapath + "IntegerArray.txt";
-			List<int> data = ReadFile.ReadIntFile (filename);
+			int opt = Convert.ToInt32(Console.ReadLine ());
 
-			long countinv = MergeSort.CountInverse (data);
-
-			Console.WriteLine ("File name : {0}", filename);
-			Console.WriteLine ("The Length of the data is {0}", data.Count);
-			Console.WriteLine ("The number of inverse pairs in the data is ");
-			Console.Write (countinv);
-		}
-
-		static void QuickSortTest()
-		{
 			string filename0;
-			Console.WriteLine ("Enter the file name :");
+			Console.WriteLine ("Enter the file name (IntegerArray.txt by default):");
 			filename0 = Console.ReadLine();
 			if (filename0 == "") {
-				filename0 = "QuickSort.txt";
+				filename0 = "IntegerArray.txt";
+				Console.WriteLine ("Load the default data file {0}", filename0);
 			}
-			Console.WriteLine ("Enter the pivot :(0 for fist, 1 for last, 2 for 3 ways median)");
-			int optmethod = Convert.ToInt32(Console.ReadLine ());
-			string filename = datapath + filename0;//
+
+			string filename = datapath + filename0;
 			List<int> data = ReadFile.ReadIntFile (filename);
 
-			long countcomp = QuickSort.CountComparison (data, optmethod); // data is passed by a copy of reference (reference value)
+			SortingAlgo<int> sortingalgo;
 
-			Console.WriteLine ("File name : {0}", filename);
-			Console.WriteLine ("The Length of the data is {0}", data.Count);
-			Console.WriteLine ("The number of comparisons of the data is ");
+			switch (opt) 
+			{
+			case 1:
+				Console.WriteLine ("[Info]Start MergeSort...");
+				sortingalgo = new MergeSort<int> ();
+				break;
+			case 2:
+				Console.WriteLine ("[Info]Start QuickSort...");
+				Console.WriteLine ("Enter the pivot position:(0 for fist, 1 for last, 2 for 3-ways median, 3 for random)");
+				int pivotpos = Convert.ToInt32(Console.ReadLine ());
+				sortingalgo = new QuickSort<int> (pivotpos);
+				break;
+			default:
+				goto case 1;
+			}
 
-			//for (int i = 0; i < 10; ++i) Console.WriteLine (data[i]);
-
-			Console.Write (countcomp);
+			long nresult = sortingalgo.CountNumber(data);
+			sortingalgo.Display (data, filename, nresult);
 		}
-
-		static string datapath = "/home/alicia/Codes/CSharp/MyFirstCsharp/data/"; 
 	}
 }

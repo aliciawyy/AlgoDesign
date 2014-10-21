@@ -4,19 +4,38 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-	public static class QuickSort
+	public class QuickSort<T> : SortingAlgo <T> where T : IComparable
 	{
-		public static long CountComparison(List<int> data, int optmethod)
+		enum PivotPosition { First = 0, Final = 1, Median3ways = 2, RandomTerm = 3 }
+
+		/// <summary>
+		/// The flagpartition shows the position of the pivot
+		/// 0 for First; 1 for Last; 2 for 3-ways median; 3 for random term
+		/// </summary>
+		PivotPosition flagpartition;
+
+		long countcomp;
+
+		public QuickSort(int pivotpos) 
 		{
 			countcomp = 0;
+			flagpartition = (PivotPosition)pivotpos;
+		}
 
-			flagpartition = optmethod;// 0 for First; 1 for Last; 2 for middle
-
+		public long CountNumber (List<T> data)
+		{
 			Sort (data, 0, data.Count - 1);
 			return countcomp;
 		}
 
-		static void Sort (List<int> data, int lo, int hi)
+		public void Display(List<T> data, string filename, long countnumb)
+		{
+			Console.WriteLine ("File name : {0}", filename);
+			Console.WriteLine ("The Length of the data is {0}", data.Count);
+			Console.WriteLine ("The number of comparisons of the data is {0}", countnumb);
+		}
+
+		public void Sort (List<T> data, int lo, int hi)
 		{
 			if (lo >= hi) {
 				return;
@@ -26,33 +45,39 @@ namespace AlgorithmDesign
 			Sort (data, j + 1, hi);
 		}
 
-		static int Partition(List<int> data, int lo, int hi)
+		//---------------------------- Private methods ------------------------------------------
+		int Partition(List<T> data, int lo, int hi)
 		{
 			countcomp += hi - lo;
 
 			// Choose the pivot term
+			int ind_pivot;
+
 			switch (flagpartition) {
-			case 1:
+			case PivotPosition.Final:
 				Exch (data, hi, lo);
 				break;
-			case 2:
-				int ind_pivot = Median (data, lo, hi, (int)(hi + lo) / 2);
+			case PivotPosition.Median3ways:
+				ind_pivot = Median (data, lo, hi, (int)(hi + lo) / 2);
+				Exch (data, ind_pivot, lo);
+				break;
+			case PivotPosition.RandomTerm:
+				Random rnd = new Random();
+				ind_pivot = rnd.Next(lo, hi + 1);
 				Exch (data, ind_pivot, lo);
 				break;
 			default:
 				break;
 			}
 
-			int pivot = data [lo];
+			T pivot = data [lo];
 
 			int i = lo;
 			for ( int j = lo + 1; j <= hi; ++j ) {
-				if (data [j] < pivot) {
-					Exch (data, j, ++i);
+				if (data[j].CompareTo(pivot) < 0 && j != (++i)) {
+					Exch (data, j, i);
 				}
 			}
-				
-			//Console.WriteLine ("The position of the pivot data[{0}] = {1} is {2}", ind_pivot, data[ind_pivot], i);
 
 			if (i != lo) { 
 				Exch (data, lo, i);
@@ -61,25 +86,27 @@ namespace AlgorithmDesign
 			return i;
 		}
 
-		static void Exch (List<int> data, int i, int j)
+		void Exch (List<T> data, int i, int j)
 		{
-			int tmp = data [i];
+			T tmp = data [i];
 			data [i] = data [j];
 			data [j] = tmp;
 		}
 
-		static int Median(List<int> data, int a, int b, int c) {
+		int Median(List<T> data, int a, int b, int c) {
 
-			if ( (data[a] - data[b]) * (data[c] - data[a]) >= 0 ) // a >= b and a <= c OR a <= b and a >= c
+			if (data [a].CompareTo (data [b]) <= 0 && data [a].CompareTo (data [c]) >= 0) {
 				return a;
-			else if ( (data[b] - data[a]) * (data[c] - data[b]) >= 0 ) // b >= a and b <= c OR b <= a and b >= c
+			} else if (data [a].CompareTo (data [b]) >= 0 && data [a].CompareTo (data [c]) <= 0) {
+				return a;
+			} else if (data [b].CompareTo (data [a]) <= 0 && data [b].CompareTo (data [c]) >= 0) {
 				return b;
-			else
+			} else if (data [b].CompareTo (data [a]) >= 0 && data [b].CompareTo (data [c]) <= 0) {
+				return b;
+			} else {
 				return c;
+			}
 		}
 
-		static int flagpartition;
-
-		public static long countcomp { get; private set;}
 	}
 }
