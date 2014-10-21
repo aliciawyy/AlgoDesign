@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-	public class QuickSort
+	public static class QuickSort
 	{
 		public static long CountComparison(List<int> data, int optmethod)
 		{
@@ -30,12 +30,17 @@ namespace AlgorithmDesign
 		{
 			countcomp += hi - lo;
 
-			if (flagpartition == 1) {
-				int ind_pivot = hi;
-				Exch (data, ind_pivot, lo);
-			} else if (flagpartition == 2) {
+			// Choose the pivot term
+			switch (flagpartition) {
+			case 1:
+				Exch (data, hi, lo);
+				break;
+			case 2:
 				int ind_pivot = Median (data, lo, hi, (int)(hi + lo) / 2);
 				Exch (data, ind_pivot, lo);
+				break;
+			default:
+				break;
 			}
 
 			int pivot = data [lo];

@@ -28,19 +28,25 @@ namespace AlgorithmDesign
 
 		static void QuickSortTest()
 		{
-			string filename0 = "QuickSort.txt";
+			string filename0;
 			Console.WriteLine ("Enter the file name :");
 			filename0 = Console.ReadLine();
+			if (filename0 == "") {
+				filename0 = "QuickSort.txt";
+			}
 			Console.WriteLine ("Enter the pivot :(0 for fist, 1 for last, 2 for 3 ways median)");
 			int optmethod = Convert.ToInt32(Console.ReadLine ());
 			string filename = datapath + filename0;//
 			List<int> data = ReadFile.ReadIntFile (filename);
 
-			long countcomp = QuickSort.CountComparison (data, optmethod);
+			long countcomp = QuickSort.CountComparison (data, optmethod); // data is passed by a copy of reference (reference value)
 
 			Console.WriteLine ("File name : {0}", filename);
 			Console.WriteLine ("The Length of the data is {0}", data.Count);
 			Console.WriteLine ("The number of comparisons of the data is ");
+
+			//for (int i = 0; i < 10; ++i) Console.WriteLine (data[i]);
+
 			Console.Write (countcomp);
 		}
 
