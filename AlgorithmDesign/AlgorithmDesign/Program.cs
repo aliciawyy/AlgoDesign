@@ -21,7 +21,8 @@ namespace AlgorithmDesign
 			Console.WriteLine ("1 - MergeSort (default)");
 			Console.WriteLine ("2 - QuickSort");
 
-			TypeOfSortingAlgo optmethod = (TypeOfSortingAlgo) Convert.ToInt32(Console.ReadLine ());
+			int optmethod0 = Convert.ToInt32(Console.ReadLine ());
+			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.MergeSortType : TypeOfSortingAlgo.QuickSortType;
 
 			string filename0;
 			Console.WriteLine ("Enter the file name (IntegerArray.txt by default):");
