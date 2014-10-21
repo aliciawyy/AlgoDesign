@@ -19,7 +19,7 @@ namespace AlgorithmDesign
 		public QuickSort(int pivotpos) 
 		{
 			countcomp = 0;
-			flagpartition = (PivotPosition)pivotpos;
+			flagpartition = (PivotPosition) pivotpos;
 		}
 
 		public long CountNumber (List<T> data)

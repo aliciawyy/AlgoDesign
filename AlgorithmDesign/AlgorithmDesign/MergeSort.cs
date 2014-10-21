@@ -23,7 +23,7 @@ namespace AlgorithmDesign
 		{
 			Console.WriteLine ("File name : {0}", filename);
 			Console.WriteLine ("The Length of the data is {0}", data.Count);
-			Console.WriteLine ("The number of inversion paris of the data is {0}", countnumb);
+			Console.WriteLine ("The number of inversion pairs of the data is {0}", countnumb);
 		}
 			
 		public void Sort (List<T> data, int lo, int hi)

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AlgorithmDesign
 {
 	class MainClass
 	{
-		static readonly string datapath = "/home/alicia/Codes/CSharp/MyFirstCsharp/data/"; 
+		static readonly string datapath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
+
 		enum TypeOfSortingAlgo { MergeSortType = 1, QuickSortType = 2 }
 
 		public static void Main (string[] args)
@@ -29,8 +31,16 @@ namespace AlgorithmDesign
 				Console.WriteLine ("Load the default data file {0}", filename0);
 			}
 
-			string filename = datapath + filename0;
-			List<int> data = ReadFile.ReadIntFile (filename);
+			string filename = Path.Combine(datapath, filename0);
+			List<int> data;
+			try {
+				data = ReadFile.ReadIntFile (filename);
+			}
+			catch (FileNotFoundException)
+			{
+				Console.WriteLine ("[Error]The file {0} doesn't exist. Program Exit.", filename);
+				return;
+			}
 
 			SortingAlgo<int> sortingalgo;
 
@@ -51,8 +61,8 @@ namespace AlgorithmDesign
 				sortingalgo = new QuickSort<int> (pivotpos);
 				break;
 
-			default:
-				goto case 1;
+			default: // Use MergeSort by default
+				goto case TypeOfSortingAlgo.MergeSortType;
 			}
 
 			long nresult = sortingalgo.CountNumber(data);
