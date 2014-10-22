@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-	public class MergeSort<T> : SortingAlgo <T> where T : IComparable
+	public class MergeSort<T> : SortingAlgo <T> where T : IComparable <T> 
 	{
 		long countinv;
 

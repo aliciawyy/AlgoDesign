@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-	public interface SortingAlgo <T> where T : IComparable
+	public interface SortingAlgo <T> where T : IComparable <T> 
 	{
 		long CountNumber (List<T> data);
 		void Display (List<T> data, string filename, long countnumb);

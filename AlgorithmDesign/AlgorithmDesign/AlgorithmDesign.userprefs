@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="QuickSort.cs">
+    <Files>
+      <File FileName="Program.cs" Line="4" Column="4" />
+      <File FileName="QuickSort.cs" Line="3" Column="3" />
+      <File FileName="MergeSort.cs" Line="72" Column="72" />
+      <File FileName="SortingAlgo.cs" Line="56" Column="56" />
+      <File FileName="ReadFile.cs" Line="5" Column="5" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

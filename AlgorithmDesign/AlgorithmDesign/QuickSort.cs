@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-	public class QuickSort<T> : SortingAlgo <T> where T : IComparable
+	public class QuickSort<T> : SortingAlgo <T> where T : IComparable <T> 
 	{
 		enum PivotPosition { First = 0, Final = 1, Median3ways = 2, RandomTerm = 3 }
 
