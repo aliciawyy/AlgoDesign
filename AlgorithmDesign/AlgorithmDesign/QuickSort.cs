@@ -6,7 +6,7 @@ namespace AlgorithmDesign
 {
 	public class QuickSort<T> : SortingAlgo <T> where T : IComparable <T> 
 	{
-		enum PivotPosition { First = 0, Final = 1, Median3ways = 2, RandomTerm = 3 }
+		enum PivotPosition { First = 0, Final = 1, Median3ways = 2, RandomTerm = 3, MedianOrder = 4 }
 
 		/// <summary>
 		/// The flagpartition shows the position of the pivot
@@ -27,10 +27,16 @@ namespace AlgorithmDesign
 
 		public override void Sort (List<T> data, int lo, int hi)
 		{
-			if (lo >= hi) {
+		    if (lo >= hi) {
 				return;
 			}
-			int j = Partition (data, lo, hi);
+
+			int j = (hi + lo) / 2;
+			if (flagpartition == PivotPosition.MedianOrder) {
+				j = Select (data, lo, hi, (int)(hi + lo) / 2);
+			} else { 
+				j = Partition (data, lo, hi);
+			}
 			Sort (data, lo, j - 1);
 			Sort (data, j + 1, hi);
 		}
@@ -58,7 +64,7 @@ namespace AlgorithmDesign
 				ind_pivot = rnd.Next(lo, hi + 1);
 				Exch (data, ind_pivot, lo);
 				break;
-			default:
+			default: // default is the case First
 				break;
 			}
 
@@ -76,6 +82,24 @@ namespace AlgorithmDesign
 			}
 
 			return i;
+		}
+
+		// This is a linear time algorithm
+		// Just for test
+		int Select(List<T> data, int lo, int hi, int k) 
+		{
+			int j = lo;
+			while (hi > lo) {
+				j = Partition (data, lo, hi);
+				if (j == k) {
+					return j;
+				} else if (j > k) {
+					hi = j - 1;
+				} else {
+					lo = j + 1;
+				}
+			}
+			return j;
 		}
 
 		void Exch (List<T> data, int i, int j)

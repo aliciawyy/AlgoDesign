@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Diagnostics;
+
 
 namespace AlgorithmDesign
 {
@@ -10,9 +13,22 @@ namespace AlgorithmDesign
 
 		enum TypeOfSortingAlgo { MergeSortType = 1, QuickSortType = 2 }
 
+		private static Stopwatch aTimer;
+
 		public static void Main (string[] args)
 		{
-			SortingTest ();
+
+			aTimer = new Stopwatch ();
+			while (true) {
+				SortingTest ();
+
+				Console.WriteLine ("Continue to test ? (Y/N)");
+				string flagcont = Console.ReadLine ();
+				if (flagcont == "N")
+					break;
+			}
+
+			return;
 		}
 
 		static void SortingTest()
@@ -25,7 +41,13 @@ namespace AlgorithmDesign
 			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.QuickSortType : TypeOfSortingAlgo.MergeSortType;
 
 			string filename0;
-			Console.WriteLine ("Enter the file name (IntegerArray.txt by default):");
+
+			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
+			Console.WriteLine ("Data files in the data directory :");
+			foreach (string fi in files) {
+				Console.Write("{0} ", fi);
+			}
+			Console.WriteLine ("\nEnter the file name (IntegerArray.txt by default):");
 			filename0 = Console.ReadLine();
 			if (filename0 == "") {
 				filename0 = "IntegerArray.txt";
@@ -45,6 +67,9 @@ namespace AlgorithmDesign
 
 			SortingAlgo<int> sortingalgo;
 
+			aTimer.Reset ();
+			aTimer.Start ();
+
 			switch (optmethod) 
 			{
 			case TypeOfSortingAlgo.MergeSortType:
@@ -56,7 +81,8 @@ namespace AlgorithmDesign
 			case TypeOfSortingAlgo.QuickSortType:
 				Console.WriteLine ("[Info]Start QuickSort...");
 
-				Console.WriteLine ("Enter the pivot position:(0 for fist, 1 for last, 2 for 3-ways median, 3 for random)");
+				Console.WriteLine ("Enter the pivot position:\n0 for fist\n1 for last\n2 for 3-ways median\n3 for random");
+				Console.WriteLine ("4 for median order");
 				int pivotpos = Convert.ToInt32(Console.ReadLine ());
 
 				sortingalgo = new QuickSort<int> (pivotpos);
@@ -67,7 +93,11 @@ namespace AlgorithmDesign
 			}
 
 			long nresult = sortingalgo.CountNumber(data);
+
+			aTimer.Stop ();
 			sortingalgo.Display (data, filename, nresult);
+
+			Console.WriteLine ("The elapse time is {0} ms.", aTimer.ElapsedMilliseconds);
 		}
 	}
 }
