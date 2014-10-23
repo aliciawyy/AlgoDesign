@@ -7,7 +7,10 @@ A generic type or method declares _type parameters_ -- placeholder types to be f
 
 Technically,
 
-* `Stack <T>` is an _open type_
+* `Stack <T>` is an _open type_. Open types are closed as part of compilation. However, it is possible for an _unbound_ generic type to exist at runtime purely as a _Type_ object, for example
+```
+Type a = typeof (A<>)
+```
 * `Stack <int>` is an _closed type_. At runtime, all generic type instances are closed -- with the placeholder types filled in (The filling-in (synthesis) occurs at runtime while in C++ it happens at compile time).
 
-Methods and types are the only constructs that can introduce type parameters.
+Methods and types are the only constructs that can introduce type parameters. Type parameters can be introduced in the declaration of classes, structs, interfaces, delegates.
