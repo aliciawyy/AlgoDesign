@@ -6,27 +6,14 @@ namespace AlgorithmDesign
 {
 	public class MergeSort<T> : SortingAlgo <T> where T : IComparable <T> 
 	{
-		long countinv;
 
-		public MergeSort() 
+		public override void Display(List<T> data, string filename, long incountnumb)
 		{
-			countinv = 0;
-		}
-
-		public long CountNumber (List<T> data)
-		{
-			Sort (data, 0, data.Count - 1);
-			return countinv;
-		}
-
-		public void Display (List<T> data, string filename, long countnumb)
-		{
-			Console.WriteLine ("File name : {0}", filename);
-			Console.WriteLine ("The Length of the data is {0}", data.Count);
-			Console.WriteLine ("The number of inversion pairs of the data is {0}", countnumb);
+			Console.WriteLine ("MergeSort -- Count inversion pairs:");
+			base.Display (data, filename, incountnumb);
 		}
 			
-		public void Sort (List<T> data, int lo, int hi)
+		public override void Sort (List<T> data, int lo, int hi)
 		{
 			if (lo >= hi) {
 				return;
@@ -55,11 +42,10 @@ namespace AlgorithmDesign
 					data [k] = aux [i++];
 				} else {
 					data [k] = aux [j++];
-					countinv += (mid + 1 - i);
+					countnumb += (mid + 1 - i);
 				}
 			}
 		}
-
 
 	}
 }

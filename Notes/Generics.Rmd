@@ -1,0 +1,13 @@
+---
+title: "Generics"
+output: html_document
+---
+
+A generic type or method declares _type parameters_ -- placeholder types to be filled in by the consumer of the generic type, which supplies the _type argument_.
+
+Technically,
+
+* `Stack <T>` is an _open type_
+* `Stack <int>` is an _closed type_. At runtime, all generic type instances are closed -- with the placeholder types filled in (The filling-in (synthesis) occurs at runtime while in C++ it happens at compile time).
+
+Methods and types are the only constructs that can introduce type parameters.

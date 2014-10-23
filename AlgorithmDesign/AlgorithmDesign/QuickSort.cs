@@ -14,28 +14,18 @@ namespace AlgorithmDesign
 		/// </summary>
 		PivotPosition flagpartition;
 
-		long countcomp;
-
-		public QuickSort(int pivotpos) 
+		public QuickSort(int pivotpos)
 		{
-			countcomp = 0;
 			flagpartition = (PivotPosition) pivotpos;
 		}
 
-		public long CountNumber (List<T> data)
+		public override void Display(List<T> data, string filename, long incountnumb)
 		{
-			Sort (data, 0, data.Count - 1);
-			return countcomp;
+			Console.WriteLine ("QuickSort -- Count comparisons:");
+			base.Display (data, filename, incountnumb);
 		}
 
-		public void Display(List<T> data, string filename, long countnumb)
-		{
-			Console.WriteLine ("File name : {0}", filename);
-			Console.WriteLine ("The Length of the data is {0}", data.Count);
-			Console.WriteLine ("The number of comparisons of the data is {0}", countnumb);
-		}
-
-		public void Sort (List<T> data, int lo, int hi)
+		public override void Sort (List<T> data, int lo, int hi)
 		{
 			if (lo >= hi) {
 				return;
@@ -48,7 +38,7 @@ namespace AlgorithmDesign
 		//---------------------------- Private methods ------------------------------------------
 		int Partition(List<T> data, int lo, int hi)
 		{
-			countcomp += hi - lo;
+			countnumb += hi - lo;
 
 			// Choose the pivot term
 			int ind_pivot;
@@ -94,7 +84,7 @@ namespace AlgorithmDesign
 			data [i] = data [j];
 			data [j] = tmp;
 		}
-
+			
 		int Median(List<T> data, int a, int b, int c) {
 
 			if (data [a].CompareTo (data [b]) <= 0 && data [a].CompareTo (data [c]) >= 0) {
