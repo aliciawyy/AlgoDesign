@@ -32,25 +32,40 @@ namespace AlgorithmDesign
 
 			return;
 		}
-		//-------------------------------------------------------------------------------------------------
 
+		//-------------------------------------------------------------------------------------------------
 		static void minCutTest()
 		{
-			string filename = "kargerMinCut.txt";
+			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
+			Console.WriteLine ("Data files in the data directory :");
+			foreach (string fi in files) {
+				Console.Write("{0} ", fi);
+			}
+			Console.WriteLine ("\nEnter the file name :");
+			string filename = Console.ReadLine();
 			string fullname = Path.Combine(datapath, filename);
 
 			List<List<int> > data = ReadFile.ReadAdjacentGraph (fullname);
 
-			List<List<int> > dgraph;
-			List<int> num;
-			const int N = data.Count;
-			for (int i = 0; i < N; ++i) {
-				data.CopyTo (dgraph);
+			Console.WriteLine ("Start Karger min cut.");
+			List<int> num = new List<int> ();
+			int N = data.Count;
+			List<List<int> > dgraph = new List<List<int>> ();
+			for (int i = 0; i < N*2; ++i) {
+				dgraph.Clear ();
+				foreach (List<int> k in data) {
+					List<int> u = new List<int> ();
+					foreach (int d in k) {
+						u.Add (d);
+					}
+					dgraph.Add (u);
+				}
+				Console.WriteLine ("Step {0} Finish copying the list", i);
 				int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
 				num.Add (mincut);
 				Console.WriteLine ("The {0}-th mincut is {1}.", i, mincut);
 			}
-			Console.WriteLine ("The mincut is {0}.", num.Min);
+			Console.WriteLine ("The mincut is {0}.", num.Min());
 		}
 
 		//-------------------------------------------------------------------------------------------------

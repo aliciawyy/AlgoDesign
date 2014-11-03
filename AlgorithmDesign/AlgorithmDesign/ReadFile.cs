@@ -40,10 +40,10 @@ namespace AlgorithmDesign
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
-					string[] tokens = Console.ReadLine().Split();
+					string[] tokens = reader.ReadLine().Split();
 					List<int> u = new List<int> ();
 					for (int i = 1; i < tokens.Length; ++i) {
-						u.Add (int.Parse (tokens [0]) - 1);
+						u.Add (int.Parse (tokens [i]) - 1);
 					}
 					v.Add (u);
 				}
