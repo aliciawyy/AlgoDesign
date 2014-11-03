@@ -15,12 +15,14 @@ namespace AlgorithmDesign
 
 		private static Stopwatch aTimer;
 
+		//-------------------------------------------------------------------------------------------------
 		public static void Main (string[] args)
 		{
 
 			aTimer = new Stopwatch ();
 			while (true) {
-				SortingTest ();
+				//SortingTest ();
+				minCutTest ();
 
 				Console.WriteLine ("Continue to test ? (Y/N)");
 				string flagcont = Console.ReadLine ();
@@ -30,7 +32,28 @@ namespace AlgorithmDesign
 
 			return;
 		}
+		//-------------------------------------------------------------------------------------------------
 
+		static void minCutTest()
+		{
+			string filename = "kargerMinCut.txt";
+			string fullname = Path.Combine(datapath, filename);
+
+			List<List<int> > data = ReadFile.ReadAdjacentGraph (fullname);
+
+			List<List<int> > dgraph;
+			List<int> num;
+			const int N = data.Count;
+			for (int i = 0; i < N; ++i) {
+				data.CopyTo (dgraph);
+				int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
+				num.Add (mincut);
+				Console.WriteLine ("The {0}-th mincut is {1}.", i, mincut);
+			}
+			Console.WriteLine ("The mincut is {0}.", num.Min);
+		}
+
+		//-------------------------------------------------------------------------------------------------
 		static void SortingTest()
 		{
 			Console.WriteLine ("Enter the sorting algorithm you want to test:");
