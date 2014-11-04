@@ -50,8 +50,10 @@ namespace AlgorithmDesign
 			Console.WriteLine ("Start Karger min cut.");
 			List<int> num = new List<int> ();
 			int N = data.Count;
+
 			List<List<int> > dgraph = new List<List<int>> ();
 			for (int i = 0; i < N*2; ++i) {
+				
 				dgraph.Clear ();
 				foreach (List<int> k in data) {
 					List<int> u = new List<int> ();
@@ -60,7 +62,7 @@ namespace AlgorithmDesign
 					}
 					dgraph.Add (u);
 				}
-				Console.WriteLine ("Step {0} Finish copying the list", i);
+					
 				int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
 				num.Add (mincut);
 				Console.WriteLine ("The {0}-th mincut is {1}.", i, mincut);

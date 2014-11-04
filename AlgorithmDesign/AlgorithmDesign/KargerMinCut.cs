@@ -19,16 +19,16 @@ namespace AlgorithmDesign
 			int vt1, vt2;
 			while (vertexarray.Count > 2) {
 
-				vt1 = Choose (vertexarray, rand, 0);
+				vt1 = Choose (vertexarray, rand, true);
 
-				vt2 = Choose (dgraph [vt1], rand, 0); // Find vt2 in the adjacent list of vt1
-				Console.WriteLine ("Enter choosing  dgraph[vt1 = {0}].Count = {1} and vertexarray.Count = {2} and vt2 = {3}",vt1, dgraph [vt1].Count, vertexarray.Count, vt2);
-
-
+				vt2 = Choose (dgraph [vt1], rand, false); // Find vt2 in the adjacent list of vt1
+				// Console.WriteLine ("Enter choosing  dgraph[vt1 = {0}].Count = {1} and vertexarray.Count = {2} and vt2 = {3}",vt1, dgraph [vt1].Count, vertexarray.Count, vt2);
 
 				for (int j = 0; j < dgraph[vt1].Count; ++j ) {
 					int vet = dgraph [vt1] [j];
-					dgraph [vet].ForEach (i => i = (i == vt1) ? vt2 : i);	
+					for (int i = 0; i < dgraph[vet].Count; ++ i) {
+						dgraph[vet][i] = (dgraph[vet][i] == vt1) ? vt2 : dgraph[vet][i];
+					}
 					dgraph [vt2].Add (vet);
 				}
 
@@ -38,23 +38,37 @@ namespace AlgorithmDesign
 						dgraph [vt2].RemoveAt (j--);
 					}
 				}
+
+				// ShowGraph (dgraph);
 			
 			}
 				
 			int mincut = dgraph [vertexarray [0]].Count;
-			Console.WriteLine ("The remaining vertices are {0}.adj = {1} and {2}.adj = {3}.", 
-				vertexarray [0], dgraph [vertexarray [0]].Count, 
-				vertexarray [1], dgraph [vertexarray [1]].Count);
+			//Console.WriteLine ("The remaining vertices are {0}.adj = {1} and {2}.adj = {3}.", 
+			//	vertexarray [0], dgraph [vertexarray [0]].Count, 
+			//	vertexarray [1], dgraph [vertexarray [1]].Count);
 			return mincut;
 		}
 
-	    static int Choose(List<int> vertexarray, Random rand, int startind = 0)
+		static public void ShowGraph(List<List<int> > dgraph)
 		{
+			foreach (List<int> k in dgraph) {
 
-			int ind = rand.Next(startind, vertexarray.Count);
+				foreach (int d in k) {
+					Console.Write("{0} ", d);
+				}
+				Console.WriteLine ("");
+			}
+		}
+
+		static int Choose(List<int> vertexarray, Random rand, bool _to_del)
+		{
+			int ind = rand.Next(0, vertexarray.Count);
 			int vertex = vertexarray [ind];
 		
-			vertexarray.RemoveAt (ind); // Remove the choosing item
+			if (_to_del) {
+				vertexarray.RemoveAt (ind); // Remove the choosing item
+			}
 
 			return vertex;
 		}

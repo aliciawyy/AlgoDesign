@@ -43,7 +43,9 @@ namespace AlgorithmDesign
 					string[] tokens = reader.ReadLine().Split();
 					List<int> u = new List<int> ();
 					for (int i = 1; i < tokens.Length; ++i) {
-						u.Add (int.Parse (tokens [i]) - 1);
+						if (tokens[i] != "") {
+							u.Add (int.Parse (tokens [i]) - 1);
+						}
 					}
 					v.Add (u);
 				}
