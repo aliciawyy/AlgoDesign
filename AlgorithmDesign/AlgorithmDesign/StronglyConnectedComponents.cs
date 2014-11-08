@@ -16,25 +16,35 @@ namespace AlgorithmDesign
 		static List<int>  leader;
 		static int  t;
 		static int  s;
-
 		// tail -> head
-		public static void ComputeSCC(List<int> tail, List<int> head)
+		public static void ComputeSCCAPI(List<int> tail, List<int> head)
 		{
 			// Number of vertices, start from 0 to (nvertex - 1)
 			int nvertex = Math.Max(tail.Max(), head.Max()) + 1;
 			Console.WriteLine ("[Info]The whole graph contains {0} nodes.", nvertex);
 
+			List<List<int>> ReverseGraph = new List<List<int>> ();
+			List<List<int>> NormalGraph = new List<List<int>> ();
+
+			ReadFile.ConvertAllEdgesToAdjacentList (head, tail, nvertex, ReverseGraph);
+			ReadFile.ConvertAllEdgesToAdjacentList (tail, head, nvertex, NormalGraph);
+
+			ComputeSCC (NormalGraph, ReverseGraph);
+		}
+			
+		public static void ComputeSCC(List<List<int>> NormalGraph, List<List<int>> ReverseGraph)
+		{
 			// Initialization
+			int nvertex = NormalGraph.Count;
+
 			marked = new List<bool>    ( new bool[nvertex] );
 			finishtime = new List<int> ( new int [nvertex] );
 			leader = new List<int>     ( new int [nvertex] );
 
 			s = -1;
 
-			// Get the Reverse Graph
-			List<List<int> > RevGraph = ConvertEdgesToAdjGraph (head, tail, nvertex);
-
-			DFSLoopNormal (RevGraph);
+			//--------------------------------------
+			DFSLoop (ReverseGraph);
 
 			// Set the exploring order by the inverse of the finishing time.
 			List<int> theOrder = new List<int> ( new int[nvertex] );
@@ -42,10 +52,8 @@ namespace AlgorithmDesign
 				theOrder [finishtime [i]] = i;
 			}
 
-			// Get the normal Graph
-			List<List<int> > dGraph = ConvertEdgesToAdjGraph (tail, head, nvertex);
-
-			DFSLoopOrder (dGraph, theOrder);
+			//--------------------------------------
+			DFSLoopOrder (NormalGraph, theOrder);
 
 			PrintCountResult (leader);
 		}
@@ -66,7 +74,7 @@ namespace AlgorithmDesign
 			}
 		}
 
-		static void DFSLoopNormal(List<List<int> > dgraph)
+		static void DFSLoop(List<List<int> > dgraph)
 		{
 			t = 0;
 			for ( int i = 0; i < dgraph.Count; ++i ) {
@@ -110,24 +118,6 @@ namespace AlgorithmDesign
 			foreach (KeyValuePair<int, int> item in dic.OrderByDescending( n => n.Value ).Take(Math.Min(5, dic.Count))) {
 				Console.WriteLine ("The SCC with the leader {0} contains {1} nodes.", item.Key, item.Value);
 			}
-		}
-
-		//----------------------------------------------------------------------------------------------
-		static List<List<int> > ConvertEdgesToAdjGraph(List<int> tail, List<int> head, int nvert)
-		{
-			// Initialization
-			List<List<int> > v = new List<List<int>> ();
-			for (int i = 0; i < nvert; ++i) {
-				List<int> u = new List<int> ();
-				v.Add (u);
-			}
-
-			for (int i = 0; i < tail.Count; ++i) {
-				int ind = tail [i];
-				v [ind].Add (head [i]);
-			}
-
-			return v;
 		}
 	}
 }

@@ -52,13 +52,14 @@ namespace AlgorithmDesign
 			List<int> tail = new List<int> ();
 			List<int> head = new List<int> ();
 
-			ReadFile.ReadSCC (fullname, ref tail, ref head);
+			ReadFile.ReadAllEdges (fullname, tail, head);
 			Console.WriteLine ("[Info]Finished loading a graph with {0} edges.", tail.Count);
+
 
 			aTimer.Reset ();
 			aTimer.Start ();
 
-			StronglyConnectedComponents.ComputeSCC (tail, head);
+			StronglyConnectedComponents.ComputeSCCAPI (tail, head);
 		}
 
 
@@ -74,7 +75,7 @@ namespace AlgorithmDesign
 			string filename = Console.ReadLine();
 			string fullname = Path.Combine(datapath, filename);
 
-			List<List<int> > data = ReadFile.ReadAdjacentGraph (fullname);
+			List<List<int> > data = ReadFile.ReadAdjacentList (fullname);
 
 			Console.WriteLine ("Start Karger min cut.");
 			List<int> num = new List<int> ();
