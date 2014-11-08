@@ -9,8 +9,6 @@ namespace AlgorithmDesign
 {
 	class MainClass
 	{
-		static readonly string datapath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
-
 		enum TypeOfSortingAlgo { MergeSortType = 1, QuickSortType = 2 }
 
 		private static Stopwatch aTimer;
@@ -40,21 +38,13 @@ namespace AlgorithmDesign
 		//-------------------------------------------------------------------------------------------------
 		static void CountSCC()
 		{
-			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
-			Console.WriteLine ("Data files in the data directory :");
-			foreach (string fi in files) {
-				Console.Write("{0} ", fi);
-			}
-			Console.WriteLine ("\nEnter the file name :");
-			string filename = Console.ReadLine();
-			string fullname = Path.Combine(datapath, filename);
+			string fullname = ReadFile.GetInputFileName ();
 		
 			List<int> tail = new List<int> ();
 			List<int> head = new List<int> ();
 
 			ReadFile.ReadAllEdges (fullname, tail, head);
 			Console.WriteLine ("[Info]Finished loading a graph with {0} edges.", tail.Count);
-
 
 			aTimer.Reset ();
 			aTimer.Start ();
@@ -66,14 +56,7 @@ namespace AlgorithmDesign
 		//-------------------------------------------------------------------------------------------------
 		static void minCutTest()
 		{
-			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
-			Console.WriteLine ("Data files in the data directory :");
-			foreach (string fi in files) {
-				Console.Write("{0} ", fi);
-			}
-			Console.WriteLine ("\nEnter the file name :");
-			string filename = Console.ReadLine();
-			string fullname = Path.Combine(datapath, filename);
+			string fullname = ReadFile.GetInputFileName ();
 
 			List<List<int> > data = ReadFile.ReadAdjacentList (fullname);
 
@@ -113,21 +96,7 @@ namespace AlgorithmDesign
 			int optmethod0 = Convert.ToInt32(Console.ReadLine ());
 			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.QuickSortType : TypeOfSortingAlgo.MergeSortType;
 
-			string filename0;
-
-			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
-			Console.WriteLine ("Data files in the data directory :");
-			foreach (string fi in files) {
-				Console.Write("{0} ", fi);
-			}
-			Console.WriteLine ("\nEnter the file name (IntegerArray.txt by default):");
-			filename0 = Console.ReadLine();
-			if (filename0 == "") {
-				filename0 = "IntegerArray.txt";
-				Console.WriteLine ("Load the default data file {0}", filename0);
-			}
-
-			string filename = Path.Combine(datapath, filename0);
+			string filename = ReadFile.GetInputFileName ();
 			List<int> data;
 			try {
 				data = ReadFile.ReadIntFile (filename);
@@ -166,7 +135,6 @@ namespace AlgorithmDesign
 			}
 
 			long nresult = sortingalgo.CountNumber(data);
-
 
 			sortingalgo.Display (data, filename, nresult);
 		

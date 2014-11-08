@@ -58,7 +58,8 @@ namespace AlgorithmDesign
 			PrintCountResult (leader);
 		}
 
-		static void DFSLoopOrder ( List<List<int> > dgraph, List<int> theOrder )
+		// Read from theReverseOrder[Count - 1] to theReverseOrder[0]
+		static void DFSLoopOrder ( List<List<int> > dgraph, List<int> theReverseOrder )
 		{
 			t = 0;
 			for ( int i = 0; i < dgraph.Count; ++i ) {
@@ -66,7 +67,7 @@ namespace AlgorithmDesign
 			}
 
 			for (int i = dgraph.Count - 1; i >= 0; --i) {
-				int ind = theOrder [i];
+				int ind = theReverseOrder [i];
 				if (!marked [ind]) {
 					s = ind;
 					DFS (dgraph, ind);

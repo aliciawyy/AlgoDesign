@@ -1,11 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AlgorithmDesign
 {
 	public class ReadFile
 	{
+		static readonly string datapath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
+
+		public static string GetInputFileName()
+		{
+			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
+			Console.WriteLine ("Data files in the data directory :");
+			foreach (string fi in files) {
+				Console.Write("{0} ", fi);
+			}
+			Console.WriteLine ("\nEnter the file name :");
+			string filename = Console.ReadLine();
+			string fullname = Path.Combine(datapath, filename);
+
+			return fullname;
+		}
+
+
+		//-------------------------------------------------------------------------------
 		public static List<int> ReadIntFile(string filename)
 		{
 			FileInfo fi = new FileInfo (filename);
