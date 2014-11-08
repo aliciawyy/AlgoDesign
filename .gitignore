@@ -4,6 +4,9 @@
 *.obj
 *.elf
 
+# Large files
+*SCC.txt
+
 # Precompiled Headers
 *.gch
 *.pch

@@ -21,8 +21,12 @@ namespace AlgorithmDesign
 
 			aTimer = new Stopwatch ();
 			while (true) {
+
 				//SortingTest ();
 				CountSCC ();
+
+				aTimer.Stop ();
+				Console.WriteLine ("The elapse time is {0} ms.", aTimer.ElapsedMilliseconds);
 
 				Console.WriteLine ("Continue to test ? (Y/N)");
 				string flagcont = Console.ReadLine ();
@@ -49,7 +53,12 @@ namespace AlgorithmDesign
 			List<int> head = new List<int> ();
 
 			ReadFile.ReadSCC (fullname, ref tail, ref head);
-			Console.WriteLine ("[Info] Finished loading a graph with {0} edges.", tail.Count);
+			Console.WriteLine ("[Info]Finished loading a graph with {0} edges.", tail.Count);
+
+			aTimer.Reset ();
+			aTimer.Start ();
+
+			StronglyConnectedComponents.ComputeSCC (tail, head);
 		}
 
 
@@ -83,6 +92,9 @@ namespace AlgorithmDesign
 					dgraph.Add (u);
 				}
 					
+				aTimer.Reset ();
+				aTimer.Start ();
+
 				int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
 				num.Add (mincut);
 				Console.WriteLine ("The {0}-th mincut is {1}.", i, mincut);
@@ -125,10 +137,10 @@ namespace AlgorithmDesign
 				return;
 			}
 
-			SortingAlgo<int> sortingalgo;
-
 			aTimer.Reset ();
 			aTimer.Start ();
+
+			SortingAlgo<int> sortingalgo;
 
 			switch (optmethod) 
 			{
@@ -154,10 +166,9 @@ namespace AlgorithmDesign
 
 			long nresult = sortingalgo.CountNumber(data);
 
-			aTimer.Stop ();
-			sortingalgo.Display (data, filename, nresult);
 
-			Console.WriteLine ("The elapse time is {0} ms.", aTimer.ElapsedMilliseconds);
+			sortingalgo.Display (data, filename, nresult);
+		
 		}
 	}
 }

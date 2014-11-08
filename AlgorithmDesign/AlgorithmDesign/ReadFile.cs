@@ -69,8 +69,8 @@ namespace AlgorithmDesign
 			{
 				while (reader.Peek () > -1) {
 					string[] tokens = reader.ReadLine().Split();
-					tail.Add (int.Parse (tokens [0]));
-					head.Add (int.Parse (tokens [1]));
+					tail.Add (int.Parse (tokens [0]) - 1);
+					head.Add (int.Parse (tokens [1]) - 1);
 				}
 			}
 				
