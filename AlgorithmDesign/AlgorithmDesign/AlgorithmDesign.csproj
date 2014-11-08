@@ -43,6 +43,7 @@
     <Compile Include="QuickSort.cs" />
     <Compile Include="SortingAlgo.cs" />
     <Compile Include="KargerMinCut.cs" />
+    <Compile Include="StronglyConnectedComponents.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

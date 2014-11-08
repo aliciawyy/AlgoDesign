@@ -22,7 +22,7 @@ namespace AlgorithmDesign
 			aTimer = new Stopwatch ();
 			while (true) {
 				//SortingTest ();
-				minCutTest ();
+				CountSCC ();
 
 				Console.WriteLine ("Continue to test ? (Y/N)");
 				string flagcont = Console.ReadLine ();
@@ -32,6 +32,26 @@ namespace AlgorithmDesign
 
 			return;
 		}
+
+		//-------------------------------------------------------------------------------------------------
+		static void CountSCC()
+		{
+			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
+			Console.WriteLine ("Data files in the data directory :");
+			foreach (string fi in files) {
+				Console.Write("{0} ", fi);
+			}
+			Console.WriteLine ("\nEnter the file name :");
+			string filename = Console.ReadLine();
+			string fullname = Path.Combine(datapath, filename);
+		
+			List<int> tail = new List<int> ();
+			List<int> head = new List<int> ();
+
+			ReadFile.ReadSCC (fullname, ref tail, ref head);
+			Console.WriteLine ("[Info] Finished loading a graph with {0} edges.", tail.Count);
+		}
+
 
 		//-------------------------------------------------------------------------------------------------
 		static void minCutTest()

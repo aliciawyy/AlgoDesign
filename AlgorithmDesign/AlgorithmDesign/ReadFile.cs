@@ -53,6 +53,29 @@ namespace AlgorithmDesign
 
 			return v;
 		}
+
+		public static void ReadSCC(string filename, ref List<int> tail, ref List<int> head)
+		{
+			FileInfo fi = new FileInfo (filename);
+			if (!fi.Exists) {
+				throw new FileNotFoundException ();
+			}
+
+			tail.Clear ();
+			head.Clear ();
+
+			using (FileStream fs = File.OpenRead (filename))
+			using (TextReader reader = new StreamReader (fs)) 
+			{
+				while (reader.Peek () > -1) {
+					string[] tokens = reader.ReadLine().Split();
+					tail.Add (int.Parse (tokens [0]));
+					head.Add (int.Parse (tokens [1]));
+				}
+			}
+				
+			return;
+		}
 	}
 }
 

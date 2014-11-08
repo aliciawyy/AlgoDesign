@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Program.cs" Line="26" Column="26" />
+      <File FileName="Program.cs" Line="17" Column="17" />
       <File FileName="QuickSort.cs" Line="17" Column="17" />
       <File FileName="SortingAlgo.cs" Line="1" Column="1" />
-      <File FileName="ReadFile.cs" Line="20" Column="20" />
+      <File FileName="ReadFile.cs" Line="13" Column="13" />
       <File FileName="MergeSort.cs" Line="1" Column="1" />
-      <File FileName="KargetMinCut.cs" Line="37" Column="37" />
+      <File FileName="KargerMinCut.cs" Line="33" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
