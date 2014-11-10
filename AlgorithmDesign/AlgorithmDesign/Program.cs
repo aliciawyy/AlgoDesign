@@ -21,7 +21,8 @@ namespace AlgorithmDesign
 			while (true) {
 
 				//SortingTest ();
-				CountSCC ();
+				// CountSCC ();
+				DijkstraShortestPath ();
 
 				aTimer.Stop ();
 				Console.WriteLine ("The elapse time is {0} ms.", aTimer.ElapsedMilliseconds);
@@ -33,6 +34,21 @@ namespace AlgorithmDesign
 			}
 
 			return;
+		}
+
+		//-------------------------------------------------------------------------------------------------
+		static void DijkstraShortestPath()
+		{
+			string filename = ReadFile.GetInputFileName ();
+
+			List<List<int> > dgraph; // Save the adjacent list representation of the graph
+			List<List<int> > dedge;  // Save the edge lengths
+
+			ReadFile.ReadAdjacentListWithEdges (filename, out dgraph, out dedge);
+
+			ReadFile.PrintGraph (dgraph);
+			Console.WriteLine ("");
+			ReadFile.PrintGraph (dedge);
 		}
 
 		//-------------------------------------------------------------------------------------------------

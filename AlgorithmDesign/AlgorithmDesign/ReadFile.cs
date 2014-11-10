@@ -82,6 +82,42 @@ namespace AlgorithmDesign
 
 			return v;
 		}
+
+		//---------------------------------------------------------------------------------------
+		public static void ReadAdjacentListWithEdges(string filename, out List<List<int> > dgraph, out List<List<int> > dedge)
+		{
+			FileInfo fi = new FileInfo (filename);
+			if (!fi.Exists) {
+				throw new FileNotFoundException ();
+			}
+
+			dgraph = new List<List<int> > ();
+			dedge  = new List<List<int> > ();
+
+			using (FileStream fs = File.OpenRead (filename))
+			using (TextReader reader = new StreamReader (fs)) 
+			{
+				while (reader.Peek () > -1) {
+					List<int> node_list = new List<int> ();
+					List<int> edges     = new List<int> ();
+
+					string[] tokens = reader.ReadLine().Split('\t', ' ');
+					for (int i = 1; i < tokens.Length; ++i) {
+						if (tokens[i] != "") {
+							string[] item = tokens [i].Split (',');
+							node_list.Add(int.Parse (item[0]) - 1);
+							edges.Add(int.Parse (item[1]));
+						}
+					}
+					dgraph.Add (node_list);
+					dedge.Add (edges);
+				}
+			}
+
+			return;
+		}
+
+
 		/// <summary>
 		/// Reads all edges of a _directed_ graph. An example of input file is
 		/// 1 2
@@ -140,6 +176,17 @@ namespace AlgorithmDesign
 			for (int i = 0; i < tail.Count; ++i) {
 				int ind = tail [i];
 				dgraph[ind].Add (head [i]);
+			}
+		}
+
+		public static void PrintGraph(List<List<int> > dgraph)
+		{
+			for (int i = 0; i < dgraph.Count; ++i) {
+				Console.Write ("{0}: ", i);
+				for (int j = 0; j < dgraph [i].Count; ++j) {
+					Console.Write ("{0} ", dgraph [i] [j]);
+				}
+				Console.Write ("\n");
 			}
 		}
 	}

@@ -1,0 +1,6 @@
+# Priority Queue
+
+The data structure of priority queue supports the two following operations in logarithmic time
+
+* remove the maximum
+* insert

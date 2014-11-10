@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ReadFile.cs">
     <Files>
-      <File FileName="Program.cs" Line="17" Column="17" />
-      <File FileName="QuickSort.cs" Line="17" Column="17" />
+      <File FileName="Program.cs" Line="13" Column="13" />
       <File FileName="SortingAlgo.cs" Line="1" Column="1" />
-      <File FileName="ReadFile.cs" Line="13" Column="13" />
+      <File FileName="ReadFile.cs" Line="29" Column="29" />
       <File FileName="MergeSort.cs" Line="1" Column="1" />
-      <File FileName="KargerMinCut.cs" Line="33" Column="33" />
+      <File FileName="KargerMinCut.cs" Line="1" Column="1" />
+      <File FileName="StronglyConnectedComponents.cs" Line="10" Column="10" />
+      <File FileName="DijkstraSP.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
