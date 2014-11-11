@@ -20,9 +20,19 @@ namespace AlgorithmDesign
 			aTimer = new Stopwatch ();
 			while (true) {
 
-				//SortingTest ();
-				// CountSCC ();
-				DijkstraShortestPath ();
+				string filename = ReadFile.GetInputFileName ();
+
+				try {
+					//SortingTest (filename);
+					//CountSCC (filename);
+					//minCutTest(filename);
+					DijkstraShortestPath (filename);
+				}
+				catch (FileNotFoundException e)
+				{
+					Console.WriteLine ("[Error]The file {0} doesn't exist. Program Exit.", e.FileName);
+					return;
+				}
 
 				aTimer.Stop ();
 				Console.WriteLine ("The elapse time is {0} ms.", aTimer.ElapsedMilliseconds);
@@ -37,10 +47,8 @@ namespace AlgorithmDesign
 		}
 
 		//-------------------------------------------------------------------------------------------------
-		static void DijkstraShortestPath()
+		static void DijkstraShortestPath(string filename)
 		{
-			string filename = ReadFile.GetInputFileName ();
-
 			List<List<int> > dgraph; // Save the adjacent list representation of the graph
 			List<List<int> > dedge;  // Save the edge lengths
 
@@ -55,19 +63,20 @@ namespace AlgorithmDesign
 				dest [i] = dest [i] - 1;
 			}
 
+			aTimer.Reset ();
+			aTimer.Start ();
+
 			// List<int> result = DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
 			DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
 		}
 
 		//-------------------------------------------------------------------------------------------------
-		static void CountSCC()
+		static void CountSCC(string filename)
 		{
-			string fullname = ReadFile.GetInputFileName ();
-		
 			List<int> tail = new List<int> ();
 			List<int> head = new List<int> ();
 
-			ReadFile.ReadAllEdges (fullname, tail, head);
+			ReadFile.ReadAllEdges (filename, tail, head);
 			Console.WriteLine ("[Info]Finished loading a graph with {0} edges.", tail.Count);
 
 			aTimer.Reset ();
@@ -78,30 +87,22 @@ namespace AlgorithmDesign
 
 
 		//-------------------------------------------------------------------------------------------------
-		static void minCutTest()
+		static void minCutTest(string filename)
 		{
-			string fullname = ReadFile.GetInputFileName ();
+			aTimer.Reset ();
+			aTimer.Start ();
 
-			List<List<int> > data = ReadFile.ReadAdjacentList (fullname);
+			List<List<int> > data = ReadFile.ReadAdjacentList (filename);
 
 			Console.WriteLine ("Start Karger min cut.");
 			List<int> num = new List<int> ();
 			int N = data.Count;
 
-			List<List<int> > dgraph = new List<List<int>> ();
+			List<List<int> > dgraph = new List<List<int> > ();
 			for (int i = 0; i < N*2; ++i) {
 				
 				dgraph.Clear ();
-				foreach (List<int> k in data) {
-					List<int> u = new List<int> ();
-					foreach (int d in k) {
-						u.Add (d);
-					}
-					dgraph.Add (u);
-				}
-					
-				aTimer.Reset ();
-				aTimer.Start ();
+				data.ForEach( item => dgraph.Add( new List<int> (item) ) );
 
 				int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
 				num.Add (mincut);
@@ -111,7 +112,7 @@ namespace AlgorithmDesign
 		}
 
 		//-------------------------------------------------------------------------------------------------
-		static void SortingTest()
+		static void SortingTest(string filename)
 		{
 			Console.WriteLine ("Enter the sorting algorithm you want to test:");
 			Console.WriteLine ("1 - MergeSort (default)");
@@ -120,16 +121,7 @@ namespace AlgorithmDesign
 			int optmethod0 = Convert.ToInt32(Console.ReadLine ());
 			TypeOfSortingAlgo optmethod = (optmethod0 == 2) ? TypeOfSortingAlgo.QuickSortType : TypeOfSortingAlgo.MergeSortType;
 
-			string filename = ReadFile.GetInputFileName ();
-			List<int> data;
-			try {
-				data = ReadFile.ReadIntFile (filename);
-			}
-			catch (FileNotFoundException)
-			{
-				Console.WriteLine ("[Error]The file {0} doesn't exist. Program Exit.", filename);
-				return;
-			}
+			List<int> data = ReadFile.ReadIntFile (filename);
 
 			aTimer.Reset ();
 			aTimer.Start ();

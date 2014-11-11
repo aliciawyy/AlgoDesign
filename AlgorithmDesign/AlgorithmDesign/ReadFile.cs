@@ -88,7 +88,7 @@ namespace AlgorithmDesign
 		{
 			FileInfo fi = new FileInfo (filename);
 			if (!fi.Exists) {
-				throw new FileNotFoundException ();
+				throw new FileNotFoundException ("Inexistent file.", fileName:filename);
 			}
 
 			dgraph = new List<List<int> > ();

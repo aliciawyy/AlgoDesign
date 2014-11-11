@@ -11,7 +11,17 @@ namespace AlgorithmDesign
 {
 	public class ShortDist : PriorityQueueNode
 	{
+		/// <summary>
+		/// The vertex id
+		/// </summary>
+		/// <value>The identifier.</value>
 		public int Id { get; private set; }
+
+		/// <summary>
+		/// The shortest distance from the source to the vertex.
+		/// It needs to be updated each time.
+		/// </summary>
+		/// <value>The length.</value>
 		public int Len { get; set; }
 
 		public ShortDist(int id, int len) {
@@ -29,7 +39,7 @@ namespace AlgorithmDesign
 			int nvert = dgraph.Count;
 
 			// Initialization of the heap, it is implemented with a sorted List and binary search
-			HeapPriorityQueue<ShortDist> vertheap = new HeapPriorityQueue<ShortDist>(nvert);
+			HeapPriorityQueue<ShortDist> vertheap = new HeapPriorityQueue<ShortDist> (nvert);
 			List<ShortDist> vertlist = new List<ShortDist> ();
 			for (int i = 0; i < nvert; ++i) {
 				ShortDist vertex = new ShortDist (id: i, len: infdist);
@@ -58,7 +68,7 @@ namespace AlgorithmDesign
 
 				 //Console.WriteLine ("The extractmin id = {0}, len = {1}, the heap size is {2}", 
 				 //	extractmin.Id, extractmin.Len, vertheap.Count);
-
+	
 				int ind = extractmin.Id; // The vertex id of the min
 
 				for (int i = 0; i < dgraph [ind].Count; ++i) {
@@ -89,7 +99,8 @@ namespace AlgorithmDesign
 			return result;
 		}
 
-		public static void PrintShortPath(List<ShortDist> v)
+		//-------------------------------------------------------------------------------------------------------
+		static void PrintShortPath(List<ShortDist> v)
 		{
 			for (int i = 0; i < v.Count; ++i) {
 				Console.Write ("{0} ", v [i].Len);
@@ -100,7 +111,7 @@ namespace AlgorithmDesign
 		}
 
 
-		public static void PrintResult(int source, List<int> dest, List<int> distance)
+		static void PrintResult(int source, List<int> dest, List<int> distance)
 		{
 			Console.WriteLine ("From the source = {0}", source);
 			Console.WriteLine ("To the following destinations:");
