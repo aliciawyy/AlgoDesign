@@ -34,6 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
+    <Reference Include="Priority Queue">
+      <HintPath>..\..\..\BlueRaja-high-speed-priority-queue\Priority Queue\bin\Debug\Priority Queue.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

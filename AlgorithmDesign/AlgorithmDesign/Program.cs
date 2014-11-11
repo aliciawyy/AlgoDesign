@@ -45,10 +45,18 @@ namespace AlgorithmDesign
 			List<List<int> > dedge;  // Save the edge lengths
 
 			ReadFile.ReadAdjacentListWithEdges (filename, out dgraph, out dedge);
+			//ReadFile.PrintGraph (dgraph);
+			//ReadFile.PrintGraph (dedge);
 
-			ReadFile.PrintGraph (dgraph);
-			Console.WriteLine ("");
-			ReadFile.PrintGraph (dedge);
+			int source = 0;
+			int[] lsdest = { 7,37,59,82,99,115,133,165,188,197 };
+			List<int> dest = new List<int>( lsdest );
+			for (int i = 0; i < dest.Count; ++i) {
+				dest [i] = dest [i] - 1;
+			}
+
+			// List<int> result = DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
+			DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
 		}
 
 		//-------------------------------------------------------------------------------------------------
