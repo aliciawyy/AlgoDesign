@@ -26,7 +26,9 @@ namespace AlgorithmDesign
 					//SortingTest (filename);
 					//CountSCC (filename);
 					//minCutTest(filename);
-					DijkstraShortestPath (filename);
+					//DijkstraShortestPath (filename);
+					//CountTwoSum(filename);
+					GetMedianSum(filename);
 				}
 				catch (FileNotFoundException e)
 				{
@@ -44,6 +46,30 @@ namespace AlgorithmDesign
 			}
 
 			return;
+		}
+
+		//-------------------------------------------------------------------------------------------------
+		static void CountTwoSum(string filename)
+		{
+			List<long> v = ReadFile.ReadLongFile (filename);
+			Console.WriteLine ("Finished loading the array of {0} terms.", v.Count);
+
+			aTimer.Reset ();
+			aTimer.Start ();
+
+			TwoSumGame.TwoSum (v);
+		}
+
+		//-------------------------------------------------------------------------------------------------
+		static void GetMedianSum(string filename)
+		{
+			List<int> v = ReadFile.ReadIntFile (filename);
+			Console.WriteLine ("Finished loading the array of {0} terms.", v.Count);
+
+			aTimer.Reset ();
+			aTimer.Start ();
+
+			MedianSeeker.CountMedian (v);
 		}
 
 		//-------------------------------------------------------------------------------------------------

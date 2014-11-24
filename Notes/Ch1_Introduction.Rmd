@@ -1,0 +1,20 @@
+Chapter 1 Introducting C# and the .Net Framework
+================================================
+
+C# is a general-purpose, type-safe, object-oriented programming language.
+
+The object-orientation paradigm includes
+
+* __Encapsulation__ means creating a boundary around an object to separate its external (public) beharvior from its internal (private) implementation details.
+* __Inheritance__
+* __Polymorphism__
+
+The distinctive features of C# from an object-oriented perspective are
+
+* _Unified type system_ : C# has a unified type system, where all types ultimately share a common base type. (e.g. `ToString` method.)
+
+    _Type_ is the fundamental building block in C# = an encapsulated unit of data and functions.
+  
+* _Classes and interfaces_ : An interface only _describes_ members and the implementation for those members comes from types that implement the interface.
+
+* _Properties, methods and events_ can all be function members.

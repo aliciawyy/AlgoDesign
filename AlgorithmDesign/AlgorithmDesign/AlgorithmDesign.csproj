@@ -48,6 +48,8 @@
     <Compile Include="KargerMinCut.cs" />
     <Compile Include="StronglyConnectedComponents.cs" />
     <Compile Include="DijkstraSP.cs" />
+    <Compile Include="TwoSumGame.cs" />
+    <Compile Include="MedianSeeker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

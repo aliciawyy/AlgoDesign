@@ -6,7 +6,6 @@ namespace AlgorithmDesign
 {
 	public class MergeSort<T> : SortingAlgo <T> where T : IComparable <T> 
 	{
-
 		public override void Display(List<T> data, string filename, long incountnumb)
 		{
 			Console.WriteLine ("MergeSort -- Count inversion pairs:");
