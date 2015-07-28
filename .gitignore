@@ -33,3 +33,10 @@
 *.x86_64
 *.hex
 *bin/*
+
+# For the project Algo Design
+*.pdb
+*.suo
+*.manifest
+AlgorithmDesign/AlgorithmDesign/obj/x86/Debug/*
+AlgorithmDesign/packages/*

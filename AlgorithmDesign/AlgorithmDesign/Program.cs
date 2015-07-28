@@ -16,7 +16,6 @@ namespace AlgorithmDesign
 		//-------------------------------------------------------------------------------------------------
 		public static void Main (string[] args)
 		{
-
 			aTimer = new Stopwatch ();
 			while (true) {
 
@@ -26,9 +25,9 @@ namespace AlgorithmDesign
 					//SortingTest (filename);
 					//CountSCC (filename);
 					//minCutTest(filename);
-					//DijkstraShortestPath (filename);
+					DijkstraShortestPath (filename);
 					//CountTwoSum(filename);
-					GetMedianSum(filename);
+					//GetMedianSum(filename);
 				}
 				catch (FileNotFoundException e)
 				{

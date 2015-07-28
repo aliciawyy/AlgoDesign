@@ -1,54 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
-/**
- * This library can be found at <url>https://bitbucket.org/BlueRaja/high-speed-priority-queue-for-c/wiki/Home</url>
- */
-using Priority_Queue; 
+using ConcurrentPriorityQueue;
 
 namespace AlgorithmDesign
 {
-	public class ShortDist : PriorityQueueNode
+    public class ShortDist
+    {
+        /// <summary>
+        /// The vertex id
+        /// </summary>
+        /// <value>The identifier.</value>
+        public int Id { get; private set; }
+
+        /// <summary>
+        /// The shortest distance from the source to the vertex.
+        /// It needs to be updated each time.
+        /// </summary>
+        /// <value>The length.</value>
+        public int Len { get; set; }
+
+        public ShortDist(int id, int len) {
+            Id = id;
+            Len = len;
+        }
+    }
+
+    // Inverse the priority
+    public class Comparer : IComparer<int>
+    {
+        public int Compare(int x, int y)
+        {
+            return y - x;
+        }
+    }
+
+    public class DijkstraSP
 	{
-		/// <summary>
-		/// The vertex id
-		/// </summary>
-		/// <value>The identifier.</value>
-		public int Id { get; private set; }
-
-		/// <summary>
-		/// The shortest distance from the source to the vertex.
-		/// It needs to be updated each time.
-		/// </summary>
-		/// <value>The length.</value>
-		public int Len { get; set; }
-
-		public ShortDist(int id, int len) {
-			Id = id;
-			Len = len;
-		}
-	}
-
-	public class DijkstraSP
-	{
-		static readonly int infdist = 1000000;
+		static readonly int infdist = int.MaxValue;
 
 		public static List<int> ComputeShortestPath(List<List<int> > dgraph, List<List<int> > dedge, int source, List<int> dest)
 		{
 			int nvert = dgraph.Count;
 
-			// Initialization of the heap, it is implemented with a sorted List and binary search
-			HeapPriorityQueue<ShortDist> vertheap = new HeapPriorityQueue<ShortDist> (nvert);
-			List<ShortDist> vertlist = new List<ShortDist> ();
+            // Initialization of the heap, it is implemented with a sorted List and binary search
+            var vertheap = new ConcurrentPriorityQueue<ShortDist, int>(new Comparer());
+            List <ShortDist> vertlist = new List<ShortDist> ();
 			for (int i = 0; i < nvert; ++i) {
 				ShortDist vertex = new ShortDist (id: i, len: infdist);
 				vertlist.Add (vertex);
+                if (i == source) continue;
 				vertheap.Enqueue( vertex, infdist ); // infdist is the priority
 			}
-
-			// Remove the source from the heap
-			vertheap.Remove (vertlist[source]);
 
 			vertlist [source].Len = 0; // Update the shortest path from source to source
 
