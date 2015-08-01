@@ -15,6 +15,11 @@ namespace AlgorithmDesign
             _adjacentGraph = new AdjacentGraph(dgraph, dedge);
         }
 
+        public Dijkstra(AdjacentGraph adjacentGraph)
+        {
+            _adjacentGraph = adjacentGraph;
+        }
+
         public IEnumerable<int> ComputeShortestPaths(int source, IEnumerable<int> destinations)
         {
             IList<int> distancesToSource;
@@ -22,7 +27,7 @@ namespace AlgorithmDesign
             while (verticesHeap.Count > 0)
             {
                 var minSourceVertex = verticesHeap.Dequeue();
-                foreach (var neighborAndDistance in minSourceVertex.NeighborAndDistance)
+                foreach (var neighborAndDistance in minSourceVertex.NeighborAndDistanceList)
                 {
                     int neighbor = neighborAndDistance.Key;
                     // if neighbor is no longer in the heap, we don't need to do anything on
@@ -57,7 +62,7 @@ namespace AlgorithmDesign
                 verticesHeap.Enqueue(_adjacentGraph.Vertices[i], int.MaxValue);
             }
             var sourceVertex = _adjacentGraph.Vertices[source];
-            foreach (var neighborAndDistance in sourceVertex.NeighborAndDistance)
+            foreach (var neighborAndDistance in sourceVertex.NeighborAndDistanceList)
             {
                 int neighbor = neighborAndDistance.Key;
                 int distance = neighborAndDistance.Value;

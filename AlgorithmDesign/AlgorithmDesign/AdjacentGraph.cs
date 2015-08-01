@@ -4,13 +4,11 @@ using System.Collections.Generic;
 namespace AlgorithmDesign
 {
     // Adjacent graph with directions
-    class AdjacentGraph
+    public class AdjacentGraph
     {
-        private readonly List<Vertex> _vertices;
-
         // The list position i == Vertex.Id
-        public List<Vertex> Vertices { get { return _vertices; } }
-
+        private readonly List<Vertex> _vertices;
+        public List<Vertex> Vertices => _vertices;
         public int NbOfVertices => _vertices.Count;
 
         public AdjacentGraph(List<List<int>> dgraph, List<List<int>> dedge)
@@ -26,15 +24,21 @@ namespace AlgorithmDesign
                 _vertices.Add(new Vertex(i, dgraph[i], dedge[i]));
             }
         }
+
+        public IEnumerable<int> DijkstraShortestPaths(int source, IEnumerable<int> destinations)
+        {
+            var dijkstra = new Dijkstra(this);
+            return dijkstra.ComputeShortestPaths(source, destinations);
+        } 
     }
 
-    class Vertex
+    public class Vertex
     {
         private readonly int _id;
         public int Id => _id;
 
-        private readonly IDictionary<int, int> _neighborAndDistance;
-        public IDictionary<int, int> NeighborAndDistance { get { return _neighborAndDistance; } }
+        private readonly IDictionary<int, int> _neighborAndDistanceList;
+        public IDictionary<int, int> NeighborAndDistanceList => _neighborAndDistanceList;
 
         public Vertex(int id, IList<int> neighborList, IList<int> distanceList)
         {
@@ -45,10 +49,10 @@ namespace AlgorithmDesign
                     $"The number of neighbors '{neighborList.Count}' doesn't match that of distanceList " +
                     $"'{distanceList.Count}' for the vertex '{id}'.");
             }
-            _neighborAndDistance = new Dictionary<int, int>();
+            _neighborAndDistanceList = new Dictionary<int, int>();
             for (int i = 0; i < neighborList.Count; ++i)
             {
-                _neighborAndDistance.Add(neighborList[i], distanceList[i]);
+                _neighborAndDistanceList.Add(neighborList[i], distanceList[i]);
             }
         }
 

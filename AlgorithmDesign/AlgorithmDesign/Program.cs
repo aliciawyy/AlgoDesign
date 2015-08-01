@@ -23,9 +23,8 @@ namespace AlgorithmDesign
 
 				try {
 					//SortingTest (filename);
-					//CountSCC (filename);
+					CountSCC (filename);
 					//minCutTest(filename);
-					DijkstraShortestPath (filename);
 					//CountTwoSum(filename);
 					//GetMedianSum(filename);
 				}
@@ -69,31 +68,6 @@ namespace AlgorithmDesign
 			aTimer.Start ();
 
 			MedianSeeker.CountMedian (v);
-		}
-
-		//-------------------------------------------------------------------------------------------------
-		public static void DijkstraShortestPath(string filename)
-		{
-			List<List<int> > dgraph; // Save the adjacent list representation of the graph
-			List<List<int> > dedge;  // Save the edge lengths
-
-			ReadFile.ReadAdjacentListWithEdges (filename, out dgraph, out dedge);
-			//ReadFile.PrintGraph (dgraph);
-			//ReadFile.PrintGraph (dedge);
-
-			int source = 0;
-			int[] lsdest = { 7,37,59,82,99,115,133,165,188,197 };
-			List<int> dest = new List<int>( lsdest );
-			for (int i = 0; i < dest.Count; ++i) {
-				dest [i] = dest [i] - 1;
-			}
-
-			aTimer.Reset ();
-			aTimer.Start ();
-
-            var dijkstra = new Dijkstra(dgraph, dedge);
-		    var shortestDistances = dijkstra.ComputeShortestPaths(source, dest);
-		    Console.WriteLine(string.Join(" ", shortestDistances));
 		}
 
 		//-------------------------------------------------------------------------------------------------

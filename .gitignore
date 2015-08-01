@@ -40,4 +40,5 @@
 *.manifest
 AlgorithmDesign/AlgorithmDesign/obj/x86/Debug/*
 AlgorithmDesign/packages/*
-AlgorithmDesign/AlgorithmDesignTests/obj/Debug/
+AlgorithmDesign/AlgorithmDesignTests/obj/Debug/*
+AlgorithmDesign/AlgorithmDesignTests/bin/Debug/*
