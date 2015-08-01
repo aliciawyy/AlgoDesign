@@ -72,7 +72,7 @@ namespace AlgorithmDesign
 		}
 
 		//-------------------------------------------------------------------------------------------------
-		static void DijkstraShortestPath(string filename)
+		public static void DijkstraShortestPath(string filename)
 		{
 			List<List<int> > dgraph; // Save the adjacent list representation of the graph
 			List<List<int> > dedge;  // Save the edge lengths
@@ -91,8 +91,9 @@ namespace AlgorithmDesign
 			aTimer.Reset ();
 			aTimer.Start ();
 
-			// List<int> result = DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
-			DijkstraSP.ComputeShortestPath (dgraph, dedge, source, dest);
+            var dijkstra = new Dijkstra(dgraph, dedge);
+		    var shortestDistances = dijkstra.ComputeShortestPaths(source, dest);
+		    Console.WriteLine(string.Join(" ", shortestDistances));
 		}
 
 		//-------------------------------------------------------------------------------------------------

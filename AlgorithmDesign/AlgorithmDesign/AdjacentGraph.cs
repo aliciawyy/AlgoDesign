@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
+    // Adjacent graph with directions
     class AdjacentGraph
     {
         private readonly List<Vertex> _vertices;
+
+        // The list position i == Vertex.Id
         public List<Vertex> Vertices { get { return _vertices; } }
 
         public int NbOfVertices => _vertices.Count;
@@ -30,8 +33,8 @@ namespace AlgorithmDesign
         private readonly int _id;
         public int Id => _id;
 
-        private readonly List<Tuple<int, int>> _neighborAndDistance;
-        public List<Tuple<int, int>> NeighborAndDistance { get { return _neighborAndDistance; } }
+        private readonly IDictionary<int, int> _neighborAndDistance;
+        public IDictionary<int, int> NeighborAndDistance { get { return _neighborAndDistance; } }
 
         public Vertex(int id, IList<int> neighborList, IList<int> distanceList)
         {
@@ -42,11 +45,26 @@ namespace AlgorithmDesign
                     $"The number of neighbors '{neighborList.Count}' doesn't match that of distanceList " +
                     $"'{distanceList.Count}' for the vertex '{id}'.");
             }
-            _neighborAndDistance = new List<Tuple<int, int>>();
+            _neighborAndDistance = new Dictionary<int, int>();
             for (int i = 0; i < neighborList.Count; ++i)
             {
-                _neighborAndDistance.Add(new Tuple<int, int>(neighborList[i], distanceList[i]));
+                _neighborAndDistance.Add(neighborList[i], distanceList[i]);
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return _id.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var otherVertex = obj as Vertex;
+            if (otherVertex == null)
+            {
+                throw new ArgumentNullException("The object is of type " + obj.GetType());
+            }
+            return _id == otherVertex.Id;
         }
     }
 }
