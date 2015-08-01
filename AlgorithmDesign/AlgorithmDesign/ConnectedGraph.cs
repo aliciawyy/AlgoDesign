@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgorithmDesign
 {
     /// <summary>
-    /// ConnectedGraph stores a directioned or undirected graph without the edges lengths.
+    /// ConnectedGraph stores a directed or undirected graph without the edges lengths.
     /// </summary>
     public class ConnectedGraph
     {
@@ -13,7 +12,6 @@ namespace AlgorithmDesign
 
         public List<List<int>> VertexNeighborList => _vertexNeighborList;
         public int NbOfVertices => _vertexNeighborList.Count;
-        
 
         public ConnectedGraph(List<List<int>> vertexNeighborList)
         {
@@ -28,12 +26,7 @@ namespace AlgorithmDesign
 
         public bool IsVertexHasNeighbor(int vertex, int neighbor) => _vertexNeighborList[vertex].Contains(neighbor);
 
-        public List<int> GetNeighborsOf(int vertexId) => _vertexNeighborList[vertexId];
-
-        public void ClearNeighborsOf(int vertex)
-        {
-            _vertexNeighborList[vertex].Clear();
-        }
+        public List<int> GetNeighborsOf(int vertex) => _vertexNeighborList[vertex];
 
         public void ReplaceANeighborIfHas(int vertex, int neighborInQuestion, int candidate)
         {
@@ -49,6 +42,8 @@ namespace AlgorithmDesign
         {
             _vertexNeighborList[vertex].RemoveAll(vertex.Equals);
         }
+
+        public void RemoveAllNeighborsOf(int vertex) => _vertexNeighborList[vertex].Clear();
 
         public override string ToString()
         {

@@ -38,7 +38,7 @@ namespace AlgorithmDesign
                     );
                 graph.GetNeighborsOf(vertexCandidate).AddRange(neighborsOfVertexToRemove);
                 graph.RemoveSelfCirclesOf(vertexCandidate);
-                graph.ClearNeighborsOf(vertexToRemove);   
+                graph.RemoveAllNeighborsOf(vertexToRemove);   
             }
             int mincut = graph.GetNeighborsOf(allVertices[0]).Count;
             return mincut;

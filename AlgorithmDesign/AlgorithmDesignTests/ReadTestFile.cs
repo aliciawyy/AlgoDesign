@@ -20,11 +20,10 @@ namespace AlgorithmDesignTests
 
         public static string GetFullNameInteractive()
         {
-            var files = Directory.EnumerateFiles (DataPath, "*.txt").Select (f => Path.GetFileName (f));
+            var files = Directory.EnumerateFiles (DataPath, "*.txt").Select (Path.GetFileName);
             Console.WriteLine ("Data files in the data directory :");
-            foreach (string fi in files) {
+            foreach (string fi in files)
                 Console.Write("{0} ", fi);
-            }
             Console.WriteLine ("\nEnter the file name :");
             string filename = Console.ReadLine();
             return GetFullName(filename);
@@ -35,13 +34,12 @@ namespace AlgorithmDesignTests
             string fullname = GetFullName(filename);
             var result = new List<long>();
             using (FileStream fs = File.OpenRead (fullname))
-            using (TextReader reader = new StreamReader (fs)) 
-            {
-                while (reader.Peek () > -1) {
-                    string s = reader.ReadLine ();
-                    result.Add (Convert.ToInt64 (s));
+            using (TextReader reader = new StreamReader(fs))
+                while (reader.Peek() > -1)
+                {
+                    string s = reader.ReadLine();
+                    result.Add(Convert.ToInt64(s));
                 }
-            }
             return result;
         }
 
@@ -50,13 +48,12 @@ namespace AlgorithmDesignTests
             string fullname = GetFullName(filename);
             var result = new List<int> (); // New int list
             using (FileStream fs = File.OpenRead (fullname))
-            using (TextReader reader = new StreamReader (fs)) 
-            {
-                while (reader.Peek () > -1) {
-                    string s = reader.ReadLine ();
-                    result.Add (Convert.ToInt32 (s));
+            using (TextReader reader = new StreamReader(fs))
+                while (reader.Peek() > -1)
+                {
+                    string s = reader.ReadLine();
+                    result.Add(Convert.ToInt32(s));
                 }
-            }
             return result;
         }
 
@@ -74,19 +71,21 @@ namespace AlgorithmDesignTests
             var v = new List<List<int>> ();
 
             using (FileStream fs = File.OpenRead (fullname))
-            using (TextReader reader = new StreamReader (fs)) 
-            {
-                while (reader.Peek () > -1) {
-                    string[] tokens = reader.ReadLine().Split();
-                    List<int> u = new List<int> ();
-                    for (int i = 1; i < tokens.Length; ++i) {
-                        if (tokens[i] != "") {
-                            u.Add (int.Parse (tokens [i]) - 1);
+            using (TextReader reader = new StreamReader(fs))
+                while (reader.Peek() > -1)
+                {
+                    string[] tokens = reader.ReadLine()?.Split();
+                    if (tokens == null) throw new ArgumentNullException(nameof(tokens));
+                    var u = new List<int>();
+                    for (int i = 1; i < tokens.Length; ++i)
+                    {
+                        if (tokens[i] != "")
+                        {
+                            u.Add(int.Parse(tokens[i]) - 1);
                         }
                     }
-                    v.Add (u);
+                    v.Add(u);
                 }
-            }
             return v;
         }
 
