@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace AlgorithmDesign
 {
-    // Adjacent graph with directions
+    /// <summary>
+    /// AdjacentGraph stores a directional graph with length of edges.
+    /// </summary>
     public class AdjacentGraph
     {
         // The list position i == Vertex.Id

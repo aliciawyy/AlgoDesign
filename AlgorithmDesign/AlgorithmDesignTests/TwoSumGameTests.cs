@@ -17,4 +17,17 @@ namespace AlgorithmDesignTests
             Assert.AreEqual(expectedSumsInInterval, result);
         }
     }
+
+    public class MedianSeekerTests
+    {
+        [Test]
+        public void CountMedianTest()
+        {
+            string testfile = "Median.txt";
+            int expectedResidual = 1213;
+            var integerArray = ReadTestFile.ReadIntIntegerArray(testfile);
+            var result = MedianSeeker.CountMedian(integerArray);
+            Assert.AreEqual(expectedResidual, result);
+        }
+    }
 }
