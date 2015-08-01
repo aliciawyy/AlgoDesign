@@ -7,64 +7,57 @@ namespace AlgorithmDesignTests
 {
 	static class ReadTestFile
 	{
-		static readonly string datapath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
+		private static readonly string DataPath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
 
-		public static string GetInputFileName()
+	    private static string GetFullName(string filename)
+	    {
+            string fullname = Path.Combine(DataPath, filename);
+            FileInfo fi = new FileInfo(fullname);
+	        if (!fi.Exists)
+	            throw new FileNotFoundException(fullname);
+	        return fullname;
+	    }
+
+		public static string GetFullNameInteractive()
 		{
-			var files = Directory.EnumerateFiles (datapath, "*.txt").Select (f => Path.GetFileName (f));
+			var files = Directory.EnumerateFiles (DataPath, "*.txt").Select (f => Path.GetFileName (f));
 			Console.WriteLine ("Data files in the data directory :");
 			foreach (string fi in files) {
 				Console.Write("{0} ", fi);
 			}
 			Console.WriteLine ("\nEnter the file name :");
 			string filename = Console.ReadLine();
-			string fullname = Path.Combine(datapath, filename);
-
-			return fullname;
+			return GetFullName(filename);
 		}
 
-		//-------------------------------------------------------------------------------
-		public static List<long> ReadLongFile(string filename)
+	    public static List<long> ReadLongIntegerArray(string filename)
 		{
-            string fullname = Path.Combine(datapath, filename);
-            FileInfo fi = new FileInfo (fullname);
-			if (!fi.Exists) {
-				throw new FileNotFoundException (fullname);
-			}
-
-			List<long> v = new List<long> (); // New int list
-
-			using (FileStream fs = File.OpenRead (filename))
+		    string fullname = GetFullName(filename);
+            var result = new List<long>();
+			using (FileStream fs = File.OpenRead (fullname))
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
 					string s = reader.ReadLine ();
-					v.Add (Convert.ToInt64 (s));
+                    result.Add (Convert.ToInt64 (s));
 				}
 			}
-
-			return v;
+			return result;
 		}
-		//-------------------------------------------------------------------------------
+
 		public static List<int> ReadIntFile(string filename)
 		{
-			FileInfo fi = new FileInfo (filename);
-			if (!fi.Exists) {
-				throw new FileNotFoundException ();
-			}
-				
-			List<int> v = new List<int> (); // New int list
-
-			using (FileStream fs = File.OpenRead (filename))
+            string fullname = GetFullName(filename);
+            var result = new List<int> (); // New int list
+			using (FileStream fs = File.OpenRead (fullname))
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
 					string s = reader.ReadLine ();
-					v.Add (Convert.ToInt32 (s));
+                    result.Add (Convert.ToInt32 (s));
 				}
 			}
-
-			return v;
+			return result;
 		}
 
 		/// <summary>
@@ -79,14 +72,11 @@ namespace AlgorithmDesignTests
 		/// <param name="filename">Filename.</param>
 		public static List<List<int> > ReadAdjacentList(string filename)
 		{
-			FileInfo fi = new FileInfo (filename);
-			if (!fi.Exists) {
-				throw new FileNotFoundException ();
-			}
+		    string fullname = GetFullName(filename);
 
-			List<List<int> > v = new List<List<int> > (); // New int list
+            List<List<int> > v = new List<List<int> > (); // New int list
 
-			using (FileStream fs = File.OpenRead (filename))
+			using (FileStream fs = File.OpenRead (fullname))
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
@@ -104,40 +94,32 @@ namespace AlgorithmDesignTests
 			return v;
 		}
 
-		//---------------------------------------------------------------------------------------
-		public static void ReadAdjacentListWithEdges(string filename, out List<List<int> > dgraph, out List<List<int> > dedge)
-        {
-            string datapath = Path.Combine(Directory.GetCurrentDirectory(), "../../../../data");
-		    string fullname = Path.Combine(datapath, filename);
-            FileInfo fi = new FileInfo (fullname);
-			if (!fi.Exists) {
-				throw new FileNotFoundException ("Inexistent file :" + fullname);
-			}
+		public static void ReadAdjacentListWithEdges(string filename, out List<List<int>> dgraph, out List<List<int>> dedge)
+		{
+		    string fullname = GetFullName(filename);
 
-			dgraph = new List<List<int> > ();
-			dedge  = new List<List<int> > ();
+			dgraph = new List<List<int>> ();
+			dedge  = new List<List<int>> ();
 
 			using (FileStream fs = File.OpenRead (fullname))
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
-					List<int> node_list = new List<int> ();
+					List<int> nodelist = new List<int> ();
 					List<int> edges     = new List<int> ();
 
 					string[] tokens = reader.ReadLine().Split('\t', ' ');
 					for (int i = 1; i < tokens.Length; ++i) {
 						if (tokens[i] != "") {
 							string[] item = tokens [i].Split (',');
-							node_list.Add(int.Parse (item[0]) - 1);
+							nodelist.Add(int.Parse (item[0]) - 1);
 							edges.Add(int.Parse (item[1]));
 						}
 					}
-					dgraph.Add (node_list);
+					dgraph.Add (nodelist);
 					dedge.Add (edges);
 				}
 			}
-
-			return;
 		}
 
 
@@ -155,15 +137,11 @@ namespace AlgorithmDesignTests
 		/// <param name="head">List of the head</param>
 		public static void ReadAllEdges(string filename, List<int> tail, List<int> head)
 		{
-			FileInfo fi = new FileInfo (filename);
-			if (!fi.Exists) {
-				throw new FileNotFoundException ();
-			}
+            string fullname = GetFullName(filename);
+            tail.Clear ();
+            head.Clear ();
 
-			tail.Clear ();
-			head.Clear ();
-
-			using (FileStream fs = File.OpenRead (filename))
+			using (FileStream fs = File.OpenRead (fullname))
 			using (TextReader reader = new StreamReader (fs)) 
 			{
 				while (reader.Peek () > -1) {
@@ -172,8 +150,6 @@ namespace AlgorithmDesignTests
 					head.Add (int.Parse (tokens [1]) - 1);
 				}
 			}
-				
-			return;
 		}
 
 		/// <summary>
