@@ -1,6 +1,0 @@
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/bin/Debug/AlgorithmDesign.exe.mdb
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/bin/Debug/AlgorithmDesign.exe
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/obj/x86/Debug/AlgorithmDesign.exe
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/obj/x86/Debug/AlgorithmDesign.exe.mdb
-/home/alicia/Codes/CSharp/MyFirstCsharp/AlgorithmDesign/AlgorithmDesign/bin/Debug/Priority Queue.dll

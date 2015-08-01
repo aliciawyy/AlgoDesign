@@ -23,10 +23,9 @@ namespace AlgorithmDesign
 
 				try {
 					//SortingTest (filename);
-					CountSCC (filename);
+					//CountSCC (filename);
 					//minCutTest(filename);
-					//CountTwoSum(filename);
-					//GetMedianSum(filename);
+					GetMedianSum(filename);
 				}
 				catch (FileNotFoundException e)
 				{
@@ -42,20 +41,6 @@ namespace AlgorithmDesign
 				if (flagcont == "N")
 					break;
 			}
-
-			return;
-		}
-
-		//-------------------------------------------------------------------------------------------------
-		static void CountTwoSum(string filename)
-		{
-			List<long> v = ReadFile.ReadLongFile (filename);
-			Console.WriteLine ("Finished loading the array of {0} terms.", v.Count);
-
-			aTimer.Reset ();
-			aTimer.Start ();
-
-			TwoSumGame.TwoSum (v);
 		}
 
 		//-------------------------------------------------------------------------------------------------
