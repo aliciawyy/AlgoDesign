@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using ConcurrentPriorityQueue;
 
 namespace AlgorithmDesign
 {
+    
+
     public class ShortDist
     {
         /// <summary>
@@ -13,7 +17,7 @@ namespace AlgorithmDesign
         public int Id { get; private set; }
 
         /// <summary>
-        /// The shortest distance from the source to the vertex.
+        /// The shortest distance from the source to the verte
         /// It needs to be updated each time.
         /// </summary>
         /// <value>The length.</value>
@@ -26,7 +30,7 @@ namespace AlgorithmDesign
     }
 
     // Inverse the priority
-    public class Comparer : IComparer<int>
+    public class InverseComparer : IComparer<int>
     {
         public int Compare(int x, int y)
         {
@@ -35,16 +39,23 @@ namespace AlgorithmDesign
     }
 
     public class DijkstraSP
-	{
+    {
+        private readonly AdjacentGraph _adjacentGraph;
+
+        public DijkstraSP(List<List<int>> dgraph, List<List<int>> dedge)
+        {
+            _adjacentGraph = new AdjacentGraph(dgraph, dedge);
+        }
+
 		static readonly int infdist = int.MaxValue;
 
-		public static List<int> ComputeShortestPath(List<List<int> > dgraph, List<List<int> > dedge, int source, List<int> dest)
+		public static List<int> ComputeShortestPath(List<List<int>> dgraph, List<List<int>> dedge, int source, List<int> dest)
 		{
 			int nvert = dgraph.Count;
 
             // Initialization of the heap, it is implemented with a sorted List and binary search
-            var vertheap = new ConcurrentPriorityQueue<ShortDist, int>(new Comparer());
-            List <ShortDist> vertlist = new List<ShortDist> ();
+            var vertheap = new ConcurrentPriorityQueue<ShortDist, int>(new InverseComparer());
+            List<ShortDist> vertlist = new List<ShortDist>();
 			for (int i = 0; i < nvert; ++i) {
 				ShortDist vertex = new ShortDist (id: i, len: infdist);
 				vertlist.Add (vertex);
@@ -100,18 +111,6 @@ namespace AlgorithmDesign
 			PrintResult (source, dest, result);
 			return result;
 		}
-
-		//-------------------------------------------------------------------------------------------------------
-		static void PrintShortPath(List<ShortDist> v)
-		{
-			for (int i = 0; i < v.Count; ++i) {
-				Console.Write ("{0} ", v [i].Len);
-				if ((i + 1) % 10 == 0)
-					Console.Write (";\n");
-			}
-			Console.Write ("\n");
-		}
-
 
 		static void PrintResult(int source, List<int> dest, List<int> distance)
 		{
