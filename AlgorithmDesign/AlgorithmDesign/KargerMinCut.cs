@@ -6,7 +6,7 @@ namespace AlgorithmDesign
 {
     public class KargerMinCut
     {
-        static public int GetMininumulCuts(List<List<int>> rawGraph, int nbOfTries)
+        public static int GetMininumulCuts(List<List<int>> rawGraph, int nbOfTries)
         {
             var result = new List<int>();
             for (int i = 0; i < nbOfTries; ++i)
@@ -16,7 +16,7 @@ namespace AlgorithmDesign
             return result.Min();
         }
 
-        static public int CountCrossingEdges(List<List<int>> rawGraph, int randomSeed)
+        public static int CountCrossingEdges(List<List<int>> rawGraph, int randomSeed)
         {
             var origGraph = new ConnectedGraph(rawGraph);
             var graph = origGraph.DeepClone();
@@ -32,9 +32,9 @@ namespace AlgorithmDesign
                 var neighborsOfVertexToRemove = new List<int>(graph.GetNeighborsOf(vertexToRemove));
                 if (neighborsOfVertexToRemove.Count == 0) continue;
                 int vertexCandidate = PickVertex(neighborsOfVertexToRemove, random);
-                // For undirected graph
+                // For undirected graph, here we suppose that all the neighbors of X also have X as neighbor
                 neighborsOfVertexToRemove.ForEach(
-                    vertex => graph.RemoveAndReplaceANeighborIfHas(vertex, vertexToRemove, vertexCandidate)
+                    vertex => graph.ReplaceANeighborIfHas(vertex, vertexToRemove, vertexCandidate)
                     );
                 graph.GetNeighborsOf(vertexCandidate).AddRange(neighborsOfVertexToRemove);
                 graph.RemoveSelfCirclesOf(vertexCandidate);

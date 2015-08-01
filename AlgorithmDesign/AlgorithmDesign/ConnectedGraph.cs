@@ -35,7 +35,7 @@ namespace AlgorithmDesign
             _vertexNeighborList[vertex].Clear();
         }
 
-        public void RemoveAndReplaceANeighborIfHas(int vertex, int neighborInQuestion, int candidate)
+        public void ReplaceANeighborIfHas(int vertex, int neighborInQuestion, int candidate)
         {
             var allNeighbors = _vertexNeighborList[vertex];
             if (allNeighbors.Contains(neighborInQuestion))

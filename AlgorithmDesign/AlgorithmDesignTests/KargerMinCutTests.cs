@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AlgorithmDesign;
 using NUnit.Framework;
 
@@ -51,7 +50,7 @@ namespace AlgorithmDesignTests
             int theVertex = 0;
             int vertexInQuestion = 1;
             int candidate = 2;
-            graph.RemoveAndReplaceANeighborIfHas(theVertex, vertexInQuestion, candidate);
+            graph.ReplaceANeighborIfHas(theVertex, vertexInQuestion, candidate);
             Assert.False(graph.IsVertexHasNeighbor(theVertex, vertexInQuestion));
             Assert.True(graph.IsVertexHasNeighbor(theVertex, candidate));
             Console.WriteLine(graph);
