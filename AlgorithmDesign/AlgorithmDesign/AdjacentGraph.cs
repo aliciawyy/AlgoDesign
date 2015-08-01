@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmDesign
 {
@@ -31,7 +32,12 @@ namespace AlgorithmDesign
         {
             var dijkstra = new Dijkstra(this);
             return dijkstra.ComputeShortestPaths(source, destinations);
-        } 
+        }
+
+        public override string ToString()
+        {
+            return string.Join("\n", _vertices);
+        }
     }
 
     public class Vertex
@@ -71,6 +77,13 @@ namespace AlgorithmDesign
                 throw new ArgumentNullException("The object is of type " + obj.GetType());
             }
             return _id == otherVertex.Id;
+        }
+
+        public override string ToString()
+        {
+            var result = $"Vertex Id is {_id} with neighbors and corresponding distances ";
+            result += string.Join("; ", _neighborAndDistanceList.Select(p => $"{p.Key}, {p.Value}"));
+            return result;
         }
     }
 }

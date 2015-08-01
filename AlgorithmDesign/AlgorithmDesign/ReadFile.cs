@@ -43,43 +43,7 @@ namespace AlgorithmDesign
 
             return v;
         }
-
-        /// <summary>
-        /// Reads the adjacent list representation of a graph.
-        /// 1 22 34 12
-        /// 2 12 345 1 12
-        /// ...
-        /// The index starts from 1
-        /// In each row, the first term is the index vertex and the remaining terms are the vertices connected to it.
-        /// </summary>
-        /// <returns>The adjacent list.</returns>
-        public static List<List<int> > ReadAdjacentList(string filename)
-        {
-            FileInfo fi = new FileInfo (filename);
-            if (!fi.Exists) {
-                throw new FileNotFoundException ();
-            }
-
-            List<List<int> > v = new List<List<int> > (); // New int list
-
-            using (FileStream fs = File.OpenRead (filename))
-            using (TextReader reader = new StreamReader (fs)) 
-            {
-                while (reader.Peek () > -1) {
-                    string[] tokens = reader.ReadLine().Split();
-                    List<int> u = new List<int> ();
-                    for (int i = 1; i < tokens.Length; ++i) {
-                        if (tokens[i] != "") {
-                            u.Add (int.Parse (tokens [i]) - 1);
-                        }
-                    }
-                    v.Add (u);
-                }
-            }
-
-            return v;
-        }
-
+        
         /// <summary>
         /// Reads all edges of a _directed_ graph. An example of input file is
         /// 1 2
@@ -138,17 +102,6 @@ namespace AlgorithmDesign
             for (int i = 0; i < tail.Count; ++i) {
                 int ind = tail [i];
                 dgraph[ind].Add (head [i]);
-            }
-        }
-
-        public static void PrintGraph(List<List<int> > dgraph)
-        {
-            for (int i = 0; i < dgraph.Count; ++i) {
-                Console.Write ("{0}: ", i);
-                for (int j = 0; j < dgraph [i].Count; ++j) {
-                    Console.Write ("{0} ", dgraph [i] [j]);
-                }
-                Console.Write ("\n");
             }
         }
     }

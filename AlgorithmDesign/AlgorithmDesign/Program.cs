@@ -22,8 +22,7 @@ namespace AlgorithmDesign
 
                 try {
                     //SortingTest (filename);
-                    //CountSCC (filename);
-                    minCutTest(filename);
+                    CountSCC (filename);
                 }
                 catch (FileNotFoundException e)
                 {
@@ -53,30 +52,6 @@ namespace AlgorithmDesign
             aTimer.Start ();
 
             StronglyConnectedComponents.ComputeSCCAPI (tail, head);
-        }
-
-        static void minCutTest(string filename)
-        {
-            aTimer.Reset ();
-            aTimer.Start ();
-
-            List<List<int> > data = ReadFile.ReadAdjacentList (filename);
-
-            Console.WriteLine ("Start Karger min cut.");
-            List<int> num = new List<int> ();
-            int N = data.Count;
-
-            List<List<int> > dgraph = new List<List<int> > ();
-            for (int i = 0; i < N*2; ++i) {
-                
-                dgraph.Clear ();
-                data.ForEach( item => dgraph.Add( new List<int> (item) ) );
-
-                int mincut = KargerMinCut.countCrossingEdges (dgraph, i);
-                num.Add (mincut);
-                Console.WriteLine ("The {0}-th mincut is {1}.", i, mincut);
-            }
-            Console.WriteLine ("The mincut is {0}.", num.Min());
         }
 
         static void SortingTest(string filename)

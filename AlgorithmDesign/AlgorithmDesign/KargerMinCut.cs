@@ -1,76 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmDesign
 {
     public class KargerMinCut
     {
-        static List<int> vertexarray;
-
-        static public int countCrossingEdges(List<List<int> > dgraph, int randseed)
+        static public int GetMininumulCuts(List<List<int>> rawGraph, int nbOfTries)
         {
-            vertexarray = new List<int> ();
-            int nsize = dgraph.Count;
-            for (int i = 0; i < nsize; ++i) { // Populate the vertex list
-                vertexarray.Add (i);
+            var result = new List<int>();
+            for (int i = 0; i < nbOfTries; ++i)
+            {
+                result.Add(CountCrossingEdges(rawGraph, i));
             }
+            return result.Min();
+        }
 
-            Random rand = new Random (randseed);
-            int vt1, vt2;
-            while (vertexarray.Count > 2) {
+        static public int CountCrossingEdges(List<List<int>> rawGraph, int randomSeed)
+        {
+            var origGraph = new ConnectedGraph(rawGraph);
+            var graph = origGraph.DeepClone();
 
-                vt1 = Choose (vertexarray, rand, true);
+            var allVertices = new List<int> ();
+            for (int i = 0; i < graph.NbOfVertices; ++i) // Populate the vertex list
+                allVertices.Add(i);
 
-                vt2 = Choose (dgraph [vt1], rand, false); // Find vt2 in the adjacent list of vt1
-                // Console.WriteLine ("Enter choosing  dgraph[vt1 = {0}].Count = {1} and vertexarray.Count = {2} and vt2 = {3}",vt1, dgraph [vt1].Count, vertexarray.Count, vt2);
-
-                for (int j = 0; j < dgraph[vt1].Count; ++j ) {
-                    int vet = dgraph [vt1] [j];
-                    for (int i = 0; i < dgraph[vet].Count; ++ i) {
-                        dgraph[vet][i] = (dgraph[vet][i] == vt1) ? vt2 : dgraph[vet][i];
-                    }
-                    dgraph [vt2].Add (vet);
-                }
-
-                dgraph [vt1].Clear();
-                for (int j = 0; j < dgraph [vt2].Count; ++j) {
-                    if (dgraph [vt2] [j] == vt2) {
-                        dgraph [vt2].RemoveAt (j--);
-                    }
-                }
-
-                // ShowGraph (dgraph);
-            
+            Random random = new Random (randomSeed);
+            while (allVertices.Count > 2)
+            {
+                int vertexToRemove = PickAndRemoveVertex(allVertices, random);
+                var neighborsOfVertexToRemove = new List<int>(graph.GetNeighborsOf(vertexToRemove));
+                if (neighborsOfVertexToRemove.Count == 0) continue;
+                int vertexCandidate = PickVertex(neighborsOfVertexToRemove, random);
+                // For undirected graph
+                neighborsOfVertexToRemove.ForEach(
+                    vertex => graph.RemoveAndReplaceANeighborIfHas(vertex, vertexToRemove, vertexCandidate)
+                    );
+                graph.GetNeighborsOf(vertexCandidate).AddRange(neighborsOfVertexToRemove);
+                graph.RemoveSelfCirclesOf(vertexCandidate);
+                graph.ClearNeighborsOf(vertexToRemove);   
             }
-                
-            int mincut = dgraph [vertexarray [0]].Count;
-            //Console.WriteLine ("The remaining vertices are {0}.adj = {1} and {2}.adj = {3}.", 
-            //	vertexarray [0], dgraph [vertexarray [0]].Count, 
-            //	vertexarray [1], dgraph [vertexarray [1]].Count);
+            int mincut = graph.GetNeighborsOf(allVertices[0]).Count;
             return mincut;
         }
 
-        static public void ShowGraph(List<List<int> > dgraph)
+        static int PickAndRemoveVertex(IList<int> vertices, Random random)
         {
-            foreach (List<int> k in dgraph) {
-
-                foreach (int d in k) {
-                    Console.Write("{0} ", d);
-                }
-                Console.WriteLine ("");
-            }
+            int index = random.Next(0, vertices.Count);
+            int value = vertices[index];
+            vertices.RemoveAt(index);
+            return value;
         }
 
-        static int Choose(List<int> vertexarray, Random rand, bool _to_del)
+        static int PickVertex(IList<int> vertices, Random random)
         {
-            int ind = rand.Next(0, vertexarray.Count);
-            int vertex = vertexarray [ind];
-        
-            if (_to_del) {
-                vertexarray.RemoveAt (ind); // Remove the choosing item
-            }
-
-            return vertex;
+            int index = random.Next(0, vertices.Count);
+            return vertices[index];
         }
     }
 }

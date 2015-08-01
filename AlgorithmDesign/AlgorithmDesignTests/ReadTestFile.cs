@@ -68,13 +68,10 @@ namespace AlgorithmDesignTests
         /// The index starts from 1
         /// In each row, the first term is the index vertex and the remaining terms are the vertices connected to it.
         /// </summary>
-        /// <returns>The adjacent list.</returns>
-        /// <param name="filename">Filename.</param>
-        public static List<List<int> > ReadAdjacentList(string filename)
+        public static List<List<int>> ReadAdjacentList(string filename)
         {
             string fullname = GetFullName(filename);
-
-            List<List<int> > v = new List<List<int> > (); // New int list
+            var v = new List<List<int>> ();
 
             using (FileStream fs = File.OpenRead (fullname))
             using (TextReader reader = new StreamReader (fs)) 
@@ -90,7 +87,6 @@ namespace AlgorithmDesignTests
                     v.Add (u);
                 }
             }
-
             return v;
         }
 
@@ -175,17 +171,6 @@ namespace AlgorithmDesignTests
             for (int i = 0; i < tail.Count; ++i) {
                 int ind = tail [i];
                 dgraph[ind].Add (head [i]);
-            }
-        }
-
-        public static void PrintGraph(List<List<int> > dgraph)
-        {
-            for (int i = 0; i < dgraph.Count; ++i) {
-                Console.Write ("{0}: ", i);
-                for (int j = 0; j < dgraph [i].Count; ++j) {
-                    Console.Write ("{0} ", dgraph [i] [j]);
-                }
-                Console.Write ("\n");
             }
         }
     }
