@@ -1,6 +1,7 @@
-MyFirstCsharp
-=============
+AlgoDesign
+==========
 
-My first C sharp learning repository.
+This repository contains some algorithms implemented in C# alongwith their Unit Testing. It contains mainly two parts
 
-The project AlgorithmDesign stores some basic algorithms such as merge sort and quick sort tested.
+- Sorting algorithms and some number games
+- Graph algorithms(Karger's algorithm, Dijkstra) and some graph data structure
