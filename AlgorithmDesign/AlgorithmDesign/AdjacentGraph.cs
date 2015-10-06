@@ -72,11 +72,7 @@ namespace AlgorithmDesign
         public override bool Equals(object obj)
         {
             var otherVertex = obj as Vertex;
-            if (otherVertex == null)
-            {
-                throw new ArgumentNullException("The object is of type " + obj.GetType());
-            }
-            return _id == otherVertex.Id;
+            return otherVertex != null && _id == otherVertex.Id;
         }
 
         public override string ToString()
